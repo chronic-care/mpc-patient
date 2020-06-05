@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/cds4cpm-mypain/precache-manifest.4f76c06dd4ba8543f1bb89c4aba0a986.js"
+  "/cds4cpm-mypain/precache-manifest.df774fc2e954b40ec7c7b20ab5b8d720.js"
 );
 
 self.addEventListener('message', (event) => {
