@@ -1,22 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.6b9c6b2c.chunk.css",
-    "main.js": "/static/js/main.5cb9f42a.chunk.js",
-    "main.js.map": "/static/js/main.5cb9f42a.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.e60f1bc0.js",
-    "runtime-main.js.map": "/static/js/runtime-main.e60f1bc0.js.map",
-    "static/js/2.6645da4f.chunk.js": "/static/js/2.6645da4f.chunk.js",
-    "static/js/2.6645da4f.chunk.js.map": "/static/js/2.6645da4f.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.715450bef97c2efdbb2ed983ed1eefcc.js": "/precache-manifest.715450bef97c2efdbb2ed983ed1eefcc.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.6b9c6b2c.chunk.css.map": "/static/css/main.6b9c6b2c.chunk.css.map",
-    "static/js/2.6645da4f.chunk.js.LICENSE.txt": "/static/js/2.6645da4f.chunk.js.LICENSE.txt"
+    "main.css": "/cds4cpm-mypain/static/css/main.f1a48ae7.chunk.css",
+    "main.js": "/cds4cpm-mypain/static/js/main.4343b6a5.chunk.js",
+    "runtime-main.js": "/cds4cpm-mypain/static/js/runtime-main.7588c171.js",
+    "static/js/2.dfc547e5.chunk.js": "/cds4cpm-mypain/static/js/2.dfc547e5.chunk.js",
+    "index.html": "/cds4cpm-mypain/index.html",
+    "precache-manifest.4f76c06dd4ba8543f1bb89c4aba0a986.js": "/cds4cpm-mypain/precache-manifest.4f76c06dd4ba8543f1bb89c4aba0a986.js",
+    "service-worker.js": "/cds4cpm-mypain/service-worker.js",
+    "static/js/2.dfc547e5.chunk.js.LICENSE.txt": "/cds4cpm-mypain/static/js/2.dfc547e5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e60f1bc0.js",
-    "static/js/2.6645da4f.chunk.js",
-    "static/css/main.6b9c6b2c.chunk.css",
-    "static/js/main.5cb9f42a.chunk.js"
+    "static/js/runtime-main.7588c171.js",
+    "static/js/2.dfc547e5.chunk.js",
+    "static/css/main.f1a48ae7.chunk.css",
+    "static/js/main.4343b6a5.chunk.js"
   ]
 }
