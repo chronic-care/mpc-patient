@@ -46,7 +46,7 @@ function populateChoice(props: { QuestionnaireItem: QuestionnaireItem, onChange:
     <select onChange={(event) => props.onChange(props.QuestionnaireItem, [{ valueCoding: JSON.parse(event.target.value) }])}>
         {
             props.QuestionnaireItem.answerOption?.map((answerOption) => {
-              return(<option value={JSON.stringify(answerOption.valueCoding)}>{answerOption.valueCoding?.display}</option>);
+              return(<option key={JSON.stringify(answerOption.valueCoding)} value={JSON.stringify(answerOption.valueCoding)}>{answerOption.valueCoding?.display}</option>);
             })
         }
     </select>
