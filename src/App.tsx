@@ -91,7 +91,7 @@ export default class App extends React.Component<AppProps, AppState> {
       <div className="app">
         <header className="app-header">
           <p>
-            MyPain Development Branch v2
+            MyPain
           </p>
         </header>
         <PatientContainer />

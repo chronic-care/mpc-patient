@@ -13,7 +13,7 @@
       "linkId": "2",
       "type": "choice",
       "text": "How intense was your pain at its worst?",
-      "answerValueSet": "http://rti.com/fhir/rti/ValueSet/pain-assessments-intensity",
+      "answerValueSet": "http://rti.com/fhir/rti/ValueSet/pain-assessments-intensity"
     },
     {
       "linkId": "3",
