@@ -34,6 +34,10 @@ export default class App extends React.Component<AppProps, AppState> {
       QuestionnaireResponse: {
         resourceType: "QuestionnaireResponse",
         status: "in-progress",
+        source: {
+          type: this.ptRef,
+          display: this.ptDisplay,
+        },
         item: []
       }
     };
