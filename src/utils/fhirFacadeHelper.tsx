@@ -21,7 +21,12 @@ import { properties } from './properties';
                 return client.request('Questionnaire/' + properties.QUESTIONNAIRE_ID);
             })
             .then((questionnaire)=>{
+                // fix for difference between fhir servers - some having a '/' on the end and others not
+                if(url.lastIndexOf('/') === url.length - 1){
+                    url.replace(url.charAt(url.lastIndexOf('/')),'');
+                }
                 serverUrl.push(url + '/Questionnaire/' + questionnaire.id);
+                console.log("serverURL ===   " + serverUrl);
                 return questionnaire;
             });
     }
