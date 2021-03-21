@@ -1,3 +1,3 @@
 export const properties = {
-    QUESTIONNAIRE_ID: 'mypain-questionnaire'
+    QUESTIONNAIRE_ID: 'mpc-prostate-questionnaire'
 };

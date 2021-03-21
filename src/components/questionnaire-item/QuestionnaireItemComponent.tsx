@@ -125,17 +125,19 @@ export default class QuestionnaireItemComponent extends React.Component<any, Que
 
     const options = {
       replace: (domNode: any) => {
-        if (domNode?.next?.attribs?.id === 'replace' && domNode?.next?.attribs?.value === 'video') {
+        // psa-video
+        if (domNode?.next?.attribs?.id === 'replace' && domNode?.next?.attribs?.value === 'psa-video') {
           // return <iframe title="Flat Tire Video" ref={this.vidRef} width="100%" height="200" src="https://www.youtube.com/embed/QWcr9J3MLfo" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" onEnded={recordWebsiteVisit} allowFullScreen></iframe>
           return <YouTube
             id="youtube-video"
             ref={this.vidRef}
-            videoId="QWcr9J3MLfo"
+            videoId="YqticruOZ7U"
             opts={vidOptions}
             onEnd={recordWebsiteVisit}
           />
-        } else if (domNode?.next?.attribs?.id === 'replace' && domNode?.next?.attribs?.value === 'pain-link') {
-          return <a id="replace" className="d-flex justify-content-center mt-1" target="_blank" rel="noopener noreferrer" href="https://uspainfoundation.org/living-with-pain/" ><button onClick={recordWebsiteVisit} className="btn btn-outline-secondary">Visit Pain Foundation Site</button></a>
+        // psa-benefits-link
+        } else if (domNode?.next?.attribs?.id === 'replace' && domNode?.next?.attribs?.value === 'psa-benefits-link') {
+          return <a id="replace" className="d-flex justify-content-center mt-1" target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/cancer/prostate/basic_info/benefits-harms.htm" ><button onClick={recordWebsiteVisit} className="btn btn-outline-secondary">Visit CDC Web Site</button></a>
         }
       }
     }

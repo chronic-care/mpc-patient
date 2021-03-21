@@ -5,7 +5,7 @@ import QuestionnaireComponent from './components/questionnaire/QuestionnaireComp
 import { Questionnaire, QuestionnaireResponse, QuestionnaireResponseItem, QuestionnaireResponseItemAnswer } from './fhir-types/fhir-r4';
 // import ContentMyPain from './content/mypain-formtool-2.json';  //mypain-opioid.json';
 import { submitQuestionnaireResponse, getQuestionnaire } from './utils/fhirFacadeHelper';
-// TODO: add import of  getQuestionnaire 
+// TODO: add import of  getQuestionnaire
 import PatientContainer from './components/patient/PatientContainer';
 import FHIR from "fhirclient";
 import Client from "fhirclient/lib/Client";
@@ -228,7 +228,7 @@ export default class App extends React.Component<AppProps, AppState> {
             {/* <p>
               MyPain &emsp;&emsp;v {this.appVersion}
             </p> */}
-            <img className="mypain-header-logo" src={`${process.env.PUBLIC_URL}/assets/images/My_Pain_LOGO_FINAL.jpg`} alt=""/><p>v{this.appVersion}</p>
+            <img className="mypain-header-logo" src={`${process.env.PUBLIC_URL}/assets/images/mpc-logo.png`} alt=""/><p>v{this.appVersion}</p>
 
           </header>
           {this.state.Status !== 'in-progress' ? (

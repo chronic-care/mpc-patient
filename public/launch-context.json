@@ -1,6 +1,10 @@
 {
-  "clientId": "1e4187fe-c2e6-4738-8fda-b000fc9e65dc",
-  "scope": "patient/*.read patient/QuestionnaireResponse.write launch launch/patient",
+  "iss_epic": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
+  "iss_logica": "https://api.logicahealth.org/AHRQDemo/data",
+  "iss": "https://api.logicahealth.org/AHRQDemo/open",
+  "clientId_localhost": "c7abfd30-85dd-42ba-9624-cbc41f5c00fc",
+  "clientId_epic": "6881045f-a049-4c57-9a80-0a434953bccd",
+  "clientId": "c7abfd30-85dd-42ba-9624-cbc41f5c00fc",
+  "scope": "patient/*.* launch",
   "completeInTarget": true
 }
-  
