@@ -41,61 +41,45 @@
     "resourceType": "Questionnaire",
     "item": [
         {
-            "type": "group",
+            "type": "choice",
             "code": [
                 {
-                    "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes",
-                    "code": "next-step",
-                    "display": "What do you want to do next?"
+                    "code": "mpc-do-next",
+                    "display": "What do you want to do next?",
+                    "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
                 }
             ],
-            "required": false,
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/uv/StructureDefinition/cpg-answerValueSetSource",
+                    "valueCanonical": "http://fhir.org/guides/preventive-care/ValueSet/pain-types"
+                }
+            ],
+            "required": true,
             "linkId": "1",
             "text": "What do you want to do next?",
             "prefix": "Next Steps",
-            "item": [
+            "answerOption": [
                 {
-                    "type": "choice",
-                    "code": [
-                        {
-                            "code": "mpq-1038",
-                            "display": "What do you want to do next?",
-                            "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                        }
-                    ],
-                    "extension": [
-                        {
-                            "url": "http://hl7.org/fhir/uv/StructureDefinition/cpg-answerValueSetSource",
-                            "valueCanonical": "http://fhir.org/guides/preventive-care/ValueSet/pain-types"
-                        }
-                    ],
-                    "required": false,
-                    "linkId": "1.1",
-                    "text": "What do you want to do next?",
-                    "prefix": "Next",
-                    "answerOption": [
-                        {
-                            "valueCoding": {
-                                "code": "more-thought",
-                                "display": "I want to give it more thought.",
-                                "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                            }
-                        },
-                        {
-                            "valueCoding": {
-                                "code": "get-test",
-                                "display": "I think I want to get a PSA test.",
-                                "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                            }
-                        },
-                        {
-                            "valueCoding": {
-                                "code": "do-not-want-test",
-                                "display": "I think I do not want to get a PSA test.",
-                                "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                            }
-                        }
-                    ]
+                    "valueCoding": {
+                        "code": "more-thought",
+                        "display": "I want to give it more thought.",
+                        "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
+                    }
+                },
+                {
+                    "valueCoding": {
+                        "code": "get-test",
+                        "display": "I think I want to get a PSA test.",
+                        "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
+                    }
+                },
+                {
+                    "valueCoding": {
+                        "code": "do-not-want-test",
+                        "display": "I think I do not want to get a PSA test.",
+                        "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
+                    }
                 }
             ]
         },
@@ -462,58 +446,16 @@
         },
         {
           "linkId": "3",
+          "required": true,
           "code": [
             {
               "system": "http://example.org/questionnaires",
               "code": "Discuss at next appointment"
             }
           ],
+          "prefix": "Next Steps",
           "text": "Would you like to discuss prostate cancer screening at your next appointment? MyPreventiveCare can let you provider know what you want.",
           "type": "boolean"
-        },
-        {
-            "type": "display",
-            "linkId": "5",
-            "text": "We’d like to know more about how you manage your pain and what has worked for you. When answering these questions, please <strong>focus on pain</strong> related to what brings you in for your upcoming medical visit. <br/><br/> These treatments are organized into sections by type: <br/> Basic therapies <br/>Mind-body therapies<br/>New therapies<br/>Non-prescription medicines <br/>Prescription medicines",
-            "prefix": "About My Treatments"
-        },
-        {
-            "type": "text",
-            "code": [
-                {
-                    "code": "about-my-goals",
-                    "display": "We’d like to know more about you and your goals.",
-                    "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                },
-                {
-                    "code": "mpq-1035",
-                    "display": "What are your most important activity goals? For example: I’d like to be able to walk without pain.",
-                    "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                }
-            ],
-            "required": false,
-            "linkId": "11",
-            "text": "We’d like to know more about you and your goals. What are your most important activity goals? For example: I’d like to be able to walk without pain.",
-            "prefix": "About My Goals"
-        },
-        {
-            "type": "text",
-            "code": [
-                {
-                    "code": "about-my-goals",
-                    "display": "We’d like to know more about you and your goals.",
-                    "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                },
-                {
-                    "code": "mpq-1036",
-                    "display": "What are the biggest barriers to achieving your activity goals? For example: I have a lot of stress from work which makes my pain worse.",
-                    "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
-                }
-            ],
-            "required": false,
-            "linkId": "12",
-            "text": "What are the biggest barriers to achieving your activity goals? For example: I have a lot of stress from work which makes my pain worse.",
-            "prefix": "About My Goals"
         },
         {
             "type": "display",

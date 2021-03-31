@@ -3,10 +3,10 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QuestionnaireComponent from './components/questionnaire/QuestionnaireComponent';
 import { Questionnaire, QuestionnaireResponse, QuestionnaireResponseItem, QuestionnaireResponseItemAnswer } from './fhir-types/fhir-r4';
-// import ContentMyPain from './content/mypain-formtool-2.json';  //mypain-opioid.json';
-import { submitQuestionnaireResponse, getQuestionnaire } from './utils/fhirFacadeHelper';
-// TODO: add import of  getQuestionnaire
+import { submitQuestionnaireResponse, getQuestionnaire, getLocalQuestionnaire } from './utils/fhirFacadeHelper';
+import { FHIRData, getFHIRData } from './utils/fhirService';
 import PatientContainer from './components/patient/PatientContainer';
+import DecisionSummaryContainer from './components/decision-summary/DecisionSummaryContainer';
 import FHIR from "fhirclient";
 import Client from "fhirclient/lib/Client";
 import { fhirclient } from 'fhirclient/lib/types';
@@ -23,7 +23,8 @@ interface AppState {
   showModal: Boolean,
   busy: Boolean,
   Status: string,
-  Patient?: fhirclient.FHIR.Patient,
+  fhirData?: FHIRData,
+  // Patient?: fhirclient.FHIR.Patient,
   ErrorMessage?: string,
   SelectedQuestionnaire?: Questionnaire,
   QuestionnaireResponse: QuestionnaireResponse,
@@ -32,8 +33,10 @@ interface AppState {
 
 export default class App extends React.Component<AppProps, AppState> {
   appVersion = pkg.version;
+  decisionContainer: any = createRef();
   questionnaireContainer: any = createRef();
   handleModal: any = createRef();
+
   constructor(props: AppProps) {
     super(props);
     this.state =
@@ -42,7 +45,7 @@ export default class App extends React.Component<AppProps, AppState> {
       Status: 'not-started',
       ErrorMessage: undefined,
       busy: true,
-      Patient: undefined,
+      fhirData: undefined,
       SelectedQuestionnaire: undefined,
       QuestionnaireResponse: {
         resourceType: "QuestionnaireResponse",
@@ -59,20 +62,21 @@ export default class App extends React.Component<AppProps, AppState> {
   ptDisplay: any;
 
   componentDidMount() {
-    getQuestionnaire(this.state.ServerUrl)
+    //getQuestionnaire(this.state.ServerUrl)
+    getLocalQuestionnaire()
       .then(questionnaire => {
         const processQuestionnaire = (p: any) => {
           return (p as Questionnaire)
         }
         let updatedQuestionnaire = processQuestionnaire(questionnaire);
 
-        FHIR.oauth2.ready()
-          .then((client: Client) => client.patient.read())
-          .then((patient) => {
-            this.setState({ Patient: patient, busy: false })
+        getFHIRData()
+          .then((data: FHIRData) => {
+            let patient = data.patient;
+            this.setState({ fhirData: data, busy: false })
             patient.id ? this.ptRef = patient.id : this.ptRef = " ";
             this.ptDisplay = patient.name[0].given[0] + ' ' + patient.name[0].family;
-            return this.selectQuestionnaire(updatedQuestionnaire, this.ptRef, this.ptDisplay);;
+            return this.selectQuestionnaire(updatedQuestionnaire, this.ptRef, this.ptDisplay);
           }).catch(error => {
             this.setState({ busy: false, Status: 'error', ErrorMessage: error.message }, () => {
               console.log('err: ', error.message)
@@ -142,6 +146,18 @@ export default class App extends React.Component<AppProps, AppState> {
     return year + '-' + this.formatDateItem(month) + '-' + this.formatDateItem(day) + 'T' + this.formatDateItem(hours) + ':' + this.formatDateItem(min) + ':' + this.formatDateItem(sec) + '-' + this.formatDateItem(zone) + ':00';
   }
 
+  showDecisionSummary = () => {
+    this.setState({ Status: 'show-decision' }, () => {
+      if (this.decisionContainer.current) {
+        this.decisionContainer.current.firstChild.firstChild.classList.add('active');
+        this.decisionContainer.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest'
+        })
+      }
+    });
+  }
+
   startQuestionnaire = () => {
     this.setState({ Status: 'in-progress' }, () => {
       if (this.questionnaireContainer.current) {
@@ -206,10 +222,6 @@ export default class App extends React.Component<AppProps, AppState> {
   }
 
   public render(): JSX.Element {
-    // if (window.MSCompatibleInfo != null) {
-    //   alert('IE is not allowed please use Chrome!')
-    //   throw new Error('IE is not allowed please use Chrome!');
-    // }
     if (this.state.Status === "completed") {
       return <Redirect push to="/confirmation" />;
     }
@@ -234,9 +246,8 @@ export default class App extends React.Component<AppProps, AppState> {
           {this.state.Status !== 'in-progress' ? (
             <div>
               <div className="patient-container">
-
-                <PatientContainer patient={this.state.Patient} busy={this.state.busy} />
-                <Button variant="outline-secondary" size='lg' className="next-button" onClick={this.startQuestionnaire}>Next</Button>
+                <DecisionSummaryContainer fhirData={this.state.fhirData} busy={this.state.busy} />
+                <Button variant="outline-secondary" size='lg' className="next-button" onClick={this.startQuestionnaire}>Start <strong>MyQuestions</strong> </Button>
               </div>
             </div>
           ) : (
@@ -258,11 +269,11 @@ export default class App extends React.Component<AppProps, AppState> {
         <div className="app">
           <header className="app-header">
             <p>
-              MyPain &emsp;&emsp;v {this.appVersion}
+              MyPreventiveCare &emsp;&emsp;v {this.appVersion}
             </p>
           </header>
           <div className="patient-container">
-            <PatientContainer patient={this.state.Patient} busy={this.state.busy} />
+            <PatientContainer patient={this.state.fhirData?.patient} busy={this.state.busy} />
           </div>
           {/* <hr /> */}
           <div>

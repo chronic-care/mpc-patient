@@ -1,6 +1,6 @@
 import FHIR from 'fhirclient';
 import Client from 'fhirclient/lib/Client';
-import {QuestionnaireResponse} from '../fhir-types/fhir-r4';
+import { Questionnaire, QuestionnaireResponse } from '../fhir-types/fhir-r4';
 import { properties } from './properties';
 
 
@@ -31,4 +31,18 @@ import { properties } from './properties';
             }).catch(error => {
                 return error;
             });
+    }
+
+    export function getLocalQuestionnaire() {
+      let publicPath = `${process.env.PUBLIC_URL}`;
+      let resourcePath = publicPath + '/content/' + properties.QUESTIONNAIRE_ID + ".json";
+      return fetch(resourcePath)
+          .then((response)      => {
+              return response.json();
+          })
+          .then((questionnaireJson) => {
+              return questionnaireJson as Questionnaire
+          }).catch(error => {
+              return error;
+          });
     }
