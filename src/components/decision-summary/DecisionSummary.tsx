@@ -1,14 +1,16 @@
 import React from 'react';
 import '../patient/Patient.css';
 import { fhirclient } from 'fhirclient/lib/types';
-import { FHIRData } from '../../utils/fhirService';
+import { FHIRData } from '../../models/fhirResources';
+import { executeCQLSummary } from '../../service/cqlService';
 
 interface DecisionSummaryProps {
   fhirData?: FHIRData
 }
 
 interface DecisionSummaryState {
-  patient?: fhirclient.FHIR.Patient
+  patient?: fhirclient.FHIR.Patient,
+  summary?: any
 }
 
 export default class DecisionSummary extends React.Component<DecisionSummaryProps, DecisionSummaryState> {
@@ -17,11 +19,12 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
     super(props);
     this.state = {
       patient: props.fhirData?.patient,
+      summary: props.fhirData ? executeCQLSummary(props.fhirData) : undefined
     };
   }
 
   public render(): JSX.Element {
-    let patientName = this.state.patient?.name[0].given[0] + " " + this.state.patient?.name[0].family;
+    let patientName = this.state.patient?.name[0]?.given[0] + " " + this.state.patient?.name[0]?.family;
     let patientGender = this.state.patient?.gender;
     let patientBirthDate = this.state.patient?.birthDate;
 
@@ -32,15 +35,13 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
           <p/>
           <h5>Your Information</h5>
           <p>{patientName} ({patientGender}) {patientBirthDate}</p>
+          <p>{this.state.summary["MI PSA Date 1"]} {this.state.summary["PC Status"]}</p>
           <p>
             {this.props.fhirData?.conditions.length} Conditions
             <br/>{this.props.fhirData?.procedures.length} Procedures
             <br/>{this.props.fhirData?.goals.length} Goals
             <br/>{this.props.fhirData?.labResults.length} Lab Results
-            <br/>{this.props.fhirData?.vitalSigns.length} Vital Signs
           </p>
-
-          <p className="intro-text mb-5">Personalized summary text from CQL...</p>
 
           <h5>The Decision</h5>
           <p className="intro-text mb-5">Screening for prostate cancer has both potential benefits and harms.

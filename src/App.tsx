@@ -3,8 +3,10 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QuestionnaireComponent from './components/questionnaire/QuestionnaireComponent';
 import { Questionnaire, QuestionnaireResponse, QuestionnaireResponseItem, QuestionnaireResponseItemAnswer } from './fhir-types/fhir-r4';
-import { submitQuestionnaireResponse, getQuestionnaire, getLocalQuestionnaire } from './utils/fhirFacadeHelper';
-import { FHIRData, getFHIRData } from './utils/fhirService';
+import { submitQuestionnaireResponse, getQuestionnaire, getLocalQuestionnaire } from './service/fhirFacadeHelper';
+import { getFHIRData } from './service/fhirService';
+import { executeCQLSummary } from './service/cqlService';
+import { FHIRData } from './models/fhirResources';
 import PatientContainer from './components/patient/PatientContainer';
 import DecisionSummaryContainer from './components/decision-summary/DecisionSummaryContainer';
 import FHIR from "fhirclient";
@@ -75,8 +77,8 @@ export default class App extends React.Component<AppProps, AppState> {
             let patient = data.patient;
             this.setState({ fhirData: data, busy: false })
             patient.id ? this.ptRef = patient.id : this.ptRef = " ";
-            this.ptDisplay = patient.name[0].given[0] + ' ' + patient.name[0].family;
-            return this.selectQuestionnaire(updatedQuestionnaire, this.ptRef, this.ptDisplay);
+            this.ptDisplay = patient?.name[0]?.given[0] + ' ' + patient?.name[0]?.family;
+            this.selectQuestionnaire(updatedQuestionnaire, this.ptRef, this.ptDisplay);
           }).catch(error => {
             this.setState({ busy: false, Status: 'error', ErrorMessage: error.message }, () => {
               console.log('err: ', error.message)

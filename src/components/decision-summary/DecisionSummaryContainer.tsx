@@ -3,7 +3,7 @@ import React from 'react';
 import DecisionSummary from './DecisionSummary';
 import BusySpinner from '../busy-spinner/BusySpinner';
 import BusyGroup from '../busy-spinner/BusyGroup';
-import { FHIRData } from '../../utils/fhirService';
+import { FHIRData } from '../../models/fhirResources';
 // import Client from 'fhirclient/lib/Client';
 // import { fhirclient } from 'fhirclient/lib/types';
 
