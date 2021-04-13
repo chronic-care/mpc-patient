@@ -3,15 +3,18 @@ import cql from 'cql-execution';
 // @ts-ignore
 import cqlfhir from 'cql-exec-fhir';
 import { FHIRData } from '../models/fhirResources';
+import { CQLSummary } from '../models/cqlSummary';
 
 import FHIRHelpers from '../cql/FHIRHelpers.json';
 import CDSConnectCommons from '../cql/CDSConnectCommons.json';
 import PreventiveCareConcepts from '../cql/PreventiveCareConcepts.json';
 import PreventiveCareData from '../cql/PreventiveCareData.json';
 import ProstateCancerScreening from '../cql/ProstateCancerScreening.json';
+import ProstateCancerSummary from '../cql/ProstateCancerSummary.json';
 import valueSetDB from '../cql/valueset-db.json';
 
-const getSummaryLibrary = () => new cql.Library(ProstateCancerScreening, new cql.Repository({
+const getSummaryLibrary = () => new cql.Library(ProstateCancerSummary, new cql.Repository({
+  ProstateCancerScreening,
   PreventiveCareData,
   PreventiveCareConcepts,
   CDSConnectCommons,
@@ -35,20 +38,18 @@ function getPatientSource({ patient, practitioner, conditions, procedures,
   return patientSource;
 }
 
-// export const executeCQLSummary = (fhirResponse: FHIRData): CQLResults => {
-export const executeCQLSummary = (fhirData: FHIRData): any => {
-  // const { practitioner } = fhirData;
+export const executeCQLSummary = (fhirData: FHIRData): CQLSummary => {
   const patientSource = getPatientSource(fhirData);
 
   const results = executor.exec(patientSource);
   const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
   console.log(extractedSummary);
 
-  return extractedSummary;
-  // return {
-  //   patient: patientFromCQLSummary(extractedSummary),
-  //   clinician: practitioner && clinicianFromPractitionerResource(practitioner),
-  // };
+  return {
+    patient: extractedSummary.PatientSummary,
+    screening: extractedSummary.ScreeningSummary,
+    nextSteps: extractedSummary.NextStepsSummary,
+  };
 };
 
 /*

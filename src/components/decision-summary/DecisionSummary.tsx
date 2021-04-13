@@ -2,6 +2,7 @@ import React from 'react';
 import '../patient/Patient.css';
 import { fhirclient } from 'fhirclient/lib/types';
 import { FHIRData } from '../../models/fhirResources';
+import { CQLSummary } from '../../models/cqlSummary';
 import { executeCQLSummary } from '../../service/cqlService';
 
 interface DecisionSummaryProps {
@@ -10,7 +11,7 @@ interface DecisionSummaryProps {
 
 interface DecisionSummaryState {
   patient?: fhirclient.FHIR.Patient,
-  summary?: any
+  summary?: CQLSummary
 }
 
 export default class DecisionSummary extends React.Component<DecisionSummaryProps, DecisionSummaryState> {
@@ -24,9 +25,9 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
   }
 
   public render(): JSX.Element {
-    let patientName = this.state.patient?.name[0]?.given[0] + " " + this.state.patient?.name[0]?.family;
-    let patientGender = this.state.patient?.gender;
-    let patientBirthDate = this.state.patient?.birthDate;
+    let patient = this.state.summary?.patient;
+    let screening = this.state.summary?.screening;
+    let nextSteps = this.state.summary?.nextSteps;
 
     return (
       <div className="patient-view">
@@ -34,14 +35,16 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
           <h4>Decide If Prostate Cancer Screening Is Right for You</h4>
           <p/>
           <h5>Your Information</h5>
-          <p>{patientName} ({patientGender}) {patientBirthDate}</p>
-          <p>{this.state.summary["MI PSA Date 1"]} {this.state.summary["PC Status"]}</p>
-          <p>
-            {this.props.fhirData?.conditions.length} Conditions
-            <br/>{this.props.fhirData?.procedures.length} Procedures
-            <br/>{this.props.fhirData?.goals.length} Goals
-            <br/>{this.props.fhirData?.labResults.length} Lab Results
-          </p>
+          <p>{patient?.fullName} ({patient?.gender}) Age {patient?.age}</p>
+          <p>{screening?.information}</p>
+          <p>{screening?.riskStatement}</p>
+          <p><b>Your Clinical Data</b></p>
+          <ul>
+          <li>{this.props.fhirData?.conditions.length} Conditions</li>
+          <li>{this.props.fhirData?.procedures.length} Procedures</li>
+          <li>{this.props.fhirData?.goals.length} Goals</li>
+          <li>{this.props.fhirData?.labResults.length} Lab Results</li>
+          </ul>
 
           <h5>The Decision</h5>
           <p className="intro-text mb-5">Screening for prostate cancer has both potential benefits and harms.
