@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "35a5e1a504dde606e2df30b6eecf9423",
+    "revision": "1ba18c73b5561f4ba8b109dd54c7ef82",
     "url": "/mpc-patient/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mpc-patient/static/css/5.7459dfad.chunk.css"
   },
   {
-    "revision": "5c4bd1adfbc061b68729",
+    "revision": "70f09e60dac761d36c74",
     "url": "/mpc-patient/static/css/main.e5511d1b.chunk.css"
   },
   {
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mpc-patient/static/js/launch.bbb7fea6.chunk.js"
   },
   {
-    "revision": "5c4bd1adfbc061b68729",
-    "url": "/mpc-patient/static/js/main.b7099970.chunk.js"
+    "revision": "70f09e60dac761d36c74",
+    "url": "/mpc-patient/static/js/main.843a318e.chunk.js"
   },
   {
     "revision": "eaf8af365a8dceb165c8",
