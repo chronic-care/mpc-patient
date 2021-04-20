@@ -23,10 +23,31 @@ context Patient
 
 // # General definitions based on value sets and codes #
 
-define "Patient Name":
- Coalesce(Patient.name[0].text.value,
-   (Combine(Patient.name.given G return G.value, ' ') + ' ' + Combine(Patient.name.family F return F.value, ' '))
- )
+// Returns full name preferring 'official' use, if available.
+define "Patient Full Name":
+  ( Coalesce(GetPatientName('official'),
+    GetPatientName('usual'),
+    Patient.name[0]) ) Name
+  return Coalesce(Name.text.value,
+   (Combine(Name.given G return G.value, ' ') + ' ' + Name.family.value)
+  )
+  /* First((Patient.name N where N.use.value = 'official') Name
+    return Coalesce(Name.text.value,
+     (Combine(Name.given G return G.value, ' ') + ' ' + Name.family.value)
+    )
+  ) */
+
+// Returns the first Given name, used for informal patient greeting.
+define "Patient Given Name":
+  Coalesce(GetPatientName('usual').given[0].value,
+    GetPatientName('official').given[0].value,
+    Patient.name[0].given[0].value
+  )
+
+define function GetPatientName(use String):
+  First((Patient.name N where N.use.value = use) Name
+    return Name
+  )
 
 define "Patient Birth Sex":
   First(Patient.extension e

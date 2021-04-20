@@ -29,8 +29,8 @@ context Patient
  *  Summary Tuples are the primary interface for returning results to applications.
  */
 define PatientSummary: {
-  givenName: Combine(Patient.name.given G return G.value, ' '),
-  fullName: Data."Patient Name",
+  givenName: Data."Patient Given Name",
+  fullName: Data."Patient Full Name",
   gender: Patient.gender.value,
   birthSex: Data."Patient Birth Sex",
   age: AgeInYears(),
@@ -39,7 +39,7 @@ define PatientSummary: {
 }
 
 define ScreeningSummary: {
-  alertPatient: PCS."Show Prostate Cancer Screening",
+  alertPatient: PCS."Needs Prostate Cancer Screening",
   information: "Screening Information Statement",
   riskStatement: "PSA risk statement",
   riskPhrase: "PSA risk phrase"
@@ -48,7 +48,8 @@ define ScreeningSummary: {
 // TODO: nextSteps is a list that should be customized for each patient.
 define NextStepsSummary: {
   nextSteps: {
-    "Next Step 3"
+    "Next Step 3",
+    "Next Step 4"
   }
 }
 

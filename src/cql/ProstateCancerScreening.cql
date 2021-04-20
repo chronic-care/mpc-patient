@@ -25,7 +25,7 @@ context Patient
 
 /* Prostate cancer screening logic */
 
-define "Show Prostate Cancer Screening":
+define "Needs Prostate Cancer Screening":
   Data."Patient is male"
   and AgeInYears() between 40 and 70
   and ("No PSA test results"

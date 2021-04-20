@@ -26,13 +26,13 @@ const codeService = new cql.CodeService(valueSetDB);
 const executor = new cql.Executor(summaryLibrary, codeService);
 
 function getPatientSource({ patient, practitioner, conditions, procedures,
-      labResults, vitalSigns, immunizations}: FHIRData): unknown {
+      goals, immunizations, labResults, vitalSigns }: FHIRData): unknown {
   const patientSource = cqlfhir.PatientSource.FHIRv401();
 
   patientSource.loadBundles([{
     resourceType: 'Bundle',
     entry: [{ resource: patient }, { resource: practitioner }, ...conditions,
-            ...procedures, ...labResults, ...vitalSigns, ...immunizations],
+            ...procedures, ...goals, ...immunizations, ...labResults, ...vitalSigns],
   }] as unknown);
 
   return patientSource;

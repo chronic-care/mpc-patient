@@ -405,7 +405,7 @@
             "localId" : "32",
             "locator" : "28:1-33:3",
             "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
-            "name" : "Show Prostate Cancer Screening",
+            "name" : "Needs Prostate Cancer Screening",
             "context" : "Patient",
             "accessLevel" : "Public",
             "annotation" : [ {
@@ -413,7 +413,7 @@
                "s" : {
                   "r" : "32",
                   "s" : [ {
-                     "value" : [ "/* Prostate cancer screening logic */","define ","\"Show Prostate Cancer Screening\"",":\n  " ]
+                     "value" : [ "/* Prostate cancer screening logic */","define ","\"Needs Prostate Cancer Screening\"",":\n  " ]
                   }, {
                      "r" : "31",
                      "s" : [ {
