@@ -12,4 +12,3 @@ const Router = () => {
         </Switch>
     </BrowserRouter>
 }
-

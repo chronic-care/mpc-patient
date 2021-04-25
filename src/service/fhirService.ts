@@ -1,14 +1,15 @@
 import FHIR from 'fhirclient';
 import { fhirclient } from 'fhirclient/lib/types';
-import { Resource, Condition, Goal, Immunization, Observation, Patient, Practitioner, Procedure } from '../fhir-types/fhir-r4';
+import { Resource, Patient, Practitioner, CarePlan, Condition, Goal, Observation,
+        Procedure, Immunization, MedicationRequest } from '../fhir-types/fhir-r4';
 import { FHIRData } from '../models/fhirResources';
-import { properties } from './properties';
+// import { properties } from './properties';
 import { format } from 'date-fns';
 
 const resourcesFrom = (response: fhirclient.JsonObject): [Resource] => {
   const entries = response[0].entry || [];
   return entries.map((entry: fhirclient.JsonObject) => entry.resource)
-                .filter((resource: Resource) => resource.resourceType != 'OperationOutcome');
+                .filter((resource: Resource) => resource.resourceType !== 'OperationOutcome');
 };
 
 export const getObservationDateParameter = (d: Date): string => `ge${format(d, 'yyyy-MM-dd')}`;
@@ -45,10 +46,6 @@ export const getFHIRData = async (): Promise<FHIRData> => {
   // console.log("FHIRData Patient: " + JSON.stringify(patient));
   // console.log("FHIRData procedures: ");
   // procedures.forEach(function (resource) {
-  //   console.log(resource);
-  // });
-  // console.log("FHIRData goals: ");
-  // goals.forEach(function (resource) {
   //   console.log(resource);
   // });
 

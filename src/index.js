@@ -10,9 +10,10 @@ import { ErrorPage } from './components/error-page/ErrorPage';
 
 ReactDOM.render(
     <React.StrictMode >
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Switch>
                 <Route exact path='/' component={App} />
+                <Route exact path='/index.html' component={App} />
                 <Route exact path='/confirmation' component={ConfirmationPage} />
                 <Route exact path='/error' component={ErrorPage} />
                 <Route component={ErrorPage} />

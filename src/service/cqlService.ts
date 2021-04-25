@@ -2,6 +2,8 @@
 import cql from 'cql-execution';
 // @ts-ignore
 import cqlfhir from 'cql-exec-fhir';
+
+import { Resource } from '../fhir-types/fhir-r4';
 import { FHIRData } from '../models/fhirResources';
 import { CQLSummary } from '../models/cqlSummary';
 
@@ -25,15 +27,25 @@ const summaryLibrary = getSummaryLibrary();
 const codeService = new cql.CodeService(valueSetDB);
 const executor = new cql.Executor(summaryLibrary, codeService);
 
-function getPatientSource({ patient, practitioner, conditions, procedures,
-      goals, immunizations, labResults, vitalSigns }: FHIRData): unknown {
-  const patientSource = cqlfhir.PatientSource.FHIRv401();
+function getBundleEntries(resources: [Resource]) {
+  return resources.map((r: Resource) => ({ resource: r }))
+}
 
-  patientSource.loadBundles([{
+function getPatientSource(data: FHIRData): unknown {
+  const fhirBundle = {
     resourceType: 'Bundle',
-    entry: [{ resource: patient }, { resource: practitioner }, ...conditions,
-            ...procedures, ...goals, ...immunizations, ...labResults, ...vitalSigns],
-  }] as unknown);
+    entry: [{ resource: data.patient }, { resource: data.practitioner },
+      ...getBundleEntries(data.conditions),
+      ...getBundleEntries(data.procedures),
+      ...getBundleEntries(data.goals),
+      ...getBundleEntries(data.immunizations),
+      ...getBundleEntries(data.labResults),
+      ...getBundleEntries(data.vitalSigns),
+    ]
+  };
+
+  const patientSource = cqlfhir.PatientSource.FHIRv401();
+  patientSource.loadBundles([fhirBundle]);
 
   return patientSource;
 }

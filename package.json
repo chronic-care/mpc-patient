@@ -1,8 +1,8 @@
 {
     "name": "mpc-patient",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "private": true,
-    "homepage": "https://chronic-care.github.io",
+    "homepage": "https://chronic-care.github.io/mpc-patient",
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.29",
         "@fortawesome/free-regular-svg-icons": "^5.13.1",
@@ -22,7 +22,7 @@
         "cql-execution": "^2.2.0",
         "cql-exec-fhir": "^1.5.0",
         "date-fns": "^2.19.0",
-        "fhirclient": "^2.3.0",
+        "fhirclient": "^2.3.11",
         "html-react-parser": "^0.14.1",
         "moment": "^2.29.1",
         "react": "^16.13.1",

@@ -64,14 +64,13 @@ export default class App extends React.Component<AppProps, AppState> {
   ptDisplay: any;
 
   componentDidMount() {
-    //getQuestionnaire(this.state.ServerUrl)
+    // getQuestionnaire(this.state.ServerUrl)
     getLocalQuestionnaire()
       .then(questionnaire => {
         const processQuestionnaire = (p: any) => {
           return (p as Questionnaire)
         }
         let updatedQuestionnaire = processQuestionnaire(questionnaire);
-
         getFHIRData()
           .then((data: FHIRData) => {
             let patient = data.patient;
