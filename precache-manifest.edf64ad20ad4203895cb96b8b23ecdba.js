@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mpc-patient/static/js/5.51defca8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8e20085627571ac6279e",
-    "url": "/mpc-patient/static/js/launch.9577d264.chunk.js"
+    "revision": "96795e0c0ec5552ddfe1",
+    "url": "/mpc-patient/static/js/launch.389bfe9a.chunk.js"
   },
   {
     "revision": "d5153367333f75fe7006",

@@ -1,7 +1,7 @@
 {
   "files": {
     "static/js/0.ed93df4c.chunk.js": "/mpc-patient/static/js/0.ed93df4c.chunk.js",
-    "launch.js": "/mpc-patient/static/js/launch.9577d264.chunk.js",
+    "launch.js": "/mpc-patient/static/js/launch.389bfe9a.chunk.js",
     "main.css": "/mpc-patient/static/css/main.94a47485.chunk.css",
     "main.js": "/mpc-patient/static/js/main.c17b4fe6.chunk.js",
     "runtime-launch.js": "/mpc-patient/static/js/runtime-launch.217b28d2.js",
@@ -10,7 +10,7 @@
     "static/js/5.51defca8.chunk.js": "/mpc-patient/static/js/5.51defca8.chunk.js",
     "index.html": "/mpc-patient/index.html",
     "launch.html": "/mpc-patient/launch.html",
-    "precache-manifest.0520e3ef16c37a5837de3469e8475d73.js": "/mpc-patient/precache-manifest.0520e3ef16c37a5837de3469e8475d73.js",
+    "precache-manifest.edf64ad20ad4203895cb96b8b23ecdba.js": "/mpc-patient/precache-manifest.edf64ad20ad4203895cb96b8b23ecdba.js",
     "service-worker.js": "/mpc-patient/service-worker.js",
     "static/js/5.51defca8.chunk.js.LICENSE.txt": "/mpc-patient/static/js/5.51defca8.chunk.js.LICENSE.txt"
   },
