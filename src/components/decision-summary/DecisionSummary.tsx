@@ -40,9 +40,12 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
           <p>{screening?.riskStatement}</p>
           <p><b>Your Clinical Data</b></p>
           <ul>
+          <li>{this.props.fhirData?.carePlans.length} Care Plan</li>
           <li>{this.props.fhirData?.conditions.length} Conditions</li>
-          <li>{this.props.fhirData?.procedures.length} Procedures</li>
           <li>{this.props.fhirData?.goals.length} Goals</li>
+          <li>{this.props.fhirData?.medications.length} Medications (active)</li>
+          <li>{this.props.fhirData?.immunizations.length} Immunizations</li>
+          <li>{this.props.fhirData?.procedures.length} Procedures</li>
           <li>{this.props.fhirData?.labResults.length} Lab Results</li>
           </ul>
 

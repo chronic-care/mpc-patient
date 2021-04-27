@@ -1,19 +1,6 @@
 import FHIR from 'fhirclient';
-/*
-fetch(`${process.env.PUBLIC_URL}/launch-context.json`)
-    .then((response)      => {
-        return response.json()
-    })
-    .then((launchContext) => {
-        return FHIR.oauth2.authorize(launchContext)
-    })
-    .catch((error)        => console.error(error));
-*/
 
-// TODO how to I get 'req' object??
-// const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-const fullUrl = process.env.APP_URL
-//const fullUrl = "http://localhost:8000"
+const epicScope = "launch openid patient/Patient.read patient/Practitioner.read patient/Condition.read patient/Observation.read patient/Procedure.read patient/CarePlan.read patient/Goal.read patient/Immunization.read patient/MedicationRequest.read";
 
 FHIR.oauth2.authorize([
     {
@@ -35,21 +22,21 @@ FHIR.oauth2.authorize([
         issMatch: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
         redirectUri: "./index.html",
         clientId: process.env.REACT_APP_CLIENT_ID_epic_sandbox,
-        scope: "launch openid patient/Patient.read patient/Practitioner.read patient/Condition.read patient/Observation.read patient/Procedure.read patient/Goal.read patient/Immunization.read"
+        scope: epicScope
     },
     {
         // Production Epic instance, if the ISS contains the word "epic"
         issMatch: /\bepic\b/i,
         redirectUri: "./index.html",
         clientId: process.env.REACT_APP_CLIENT_ID_epic,
-        scope: "launch openid patient/Patient.read patient/Practitioner.read patient/Condition.read patient/Observation.read patient/Procedure.read patient/Goal.read"
+        scope: epicScope
     },
     {
         // For any other enpoints, try using Epic (not all contain string 'epic')
-        issMatch: /\R4\b/i,
+        issMatch: /\bR4\b/i,
         redirectUri: "./index.html",
         clientId: process.env.REACT_APP_CLIENT_ID_epic,
-        scope: "launch openid patient/Patient.read patient/Practitioner.read patient/Condition.read patient/Observation.read patient/Procedure.read patient/Goal.read"
+        scope: epicScope
     }
 
     /*
