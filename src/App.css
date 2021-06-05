@@ -10,6 +10,10 @@ h1, h2, h3 {
     font-family: 'Times New Roman', Times, serif;
 }
 
+h3 {
+    text-align: center;
+}
+
 @media screen and (min-width: 450px) {
     #root {
         display: flex;

@@ -1,17 +1,21 @@
 import React from 'react';
 import '../patient/Patient.css';
-import { fhirclient } from 'fhirclient/lib/types';
+// import { fhirclient } from 'fhirclient/lib/types';
+import { Patient } from '../../fhir-types/fhir-r4';
 import { FHIRData } from '../../models/fhirResources';
-import { CQLSummary } from '../../models/cqlSummary';
-import { executeCQLSummary } from '../../service/cqlService';
+import { SummaryData, PatientSummary, ScreeningSummary } from '../../models/cqlSummary';
+// import { executeCQLSummary } from '../../service/cqlService';
 
 interface DecisionSummaryProps {
-  fhirData?: FHIRData
+  fhirData?: FHIRData,
+  summaryData?: SummaryData
 }
 
 interface DecisionSummaryState {
-  patient?: fhirclient.FHIR.Patient,
-  summary?: CQLSummary
+  patient?: Patient,
+  patientSummary?: PatientSummary,
+  screenings?: ScreeningSummary[],
+  summary?: ScreeningSummary
 }
 
 export default class DecisionSummary extends React.Component<DecisionSummaryProps, DecisionSummaryState> {
@@ -20,45 +24,60 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
     super(props);
     this.state = {
       patient: props.fhirData?.patient,
-      summary: props.fhirData ? executeCQLSummary(props.fhirData) : undefined
+      patientSummary: props.summaryData?.patient,
+      screenings: props.summaryData?.screening?.filter(s => s.recommendScreening)
     };
   }
 
   public render(): JSX.Element {
-    let patient = this.state.summary?.patient;
-    let screening = this.state.summary?.screening;
-    let nextSteps = this.state.summary?.nextSteps;
+    let patient = this.state.patientSummary;
+    let screening = this.state.screenings?.[0];
 
     return (
       <div className="patient-view">
+        <div>
+          <ul>
+            {this.state.screenings?.map(s => (<li>{s.name}
+              <ul><li>{s.information}</li></ul>
+            </li>))}
+          </ul>
+        </div>
         <div className="welcome">
-          <h4>Decide If Prostate Cancer Screening Is Right for You</h4>
+          <h3>Get Ready for Your Visit</h3>
+          <h4>{screening?.title}</h4>
           <p/>
           <h5>Your Information</h5>
           <p>{patient?.fullName} ({patient?.gender}) Age {patient?.age}</p>
           <p>{screening?.information}</p>
-          <p>{screening?.riskStatement}</p>
           <p><b>Your Clinical Data</b></p>
           <ul>
-          <li>{this.props.fhirData?.carePlans.length} Care Plan</li>
-          <li>{this.props.fhirData?.conditions.length} Conditions</li>
-          <li>{this.props.fhirData?.goals.length} Goals</li>
-          <li>{this.props.fhirData?.medications.length} Medications (active)</li>
-          <li>{this.props.fhirData?.immunizations.length} Immunizations</li>
-          <li>{this.props.fhirData?.procedures.length} Procedures</li>
-          <li>{this.props.fhirData?.labResults.length} Lab Results</li>
+          <li>{this.props.fhirData?.carePlans?.length ?? 0} Care Plans</li>
+          <li>{this.props.fhirData?.conditions?.length ?? 0} Health Issues</li>
+          <li>{this.props.fhirData?.goals?.length ?? 0} Health Goals</li>
+          <li>{this.props.fhirData?.medications?.length ?? 0} Medications (5 years)</li>
+          <li>{this.props.fhirData?.immunizations?.length ?? 0} Immunizations</li>
+          <li>{this.props.fhirData?.procedures?.length ?? 0} Procedures</li>
+          <li>{this.props.fhirData?.diagnosticReports?.length ?? 0} Diagnostic Reports</li>
+          <li>{this.props.fhirData?.vitalSigns?.length ?? 0} Vital Signs (6 months)</li>
+          <li>{this.props.fhirData?.labResults?.length ?? 0} Lab Results</li>
+          <li>{this.props.fhirData?.socialHistory?.length ?? 0} Smoking and OB/Gyn Status</li>
           </ul>
+          
+          {(this.state.screenings?.length ?? 0 > 0)
+            ? <div>
+            <h5>The Decision</h5>
+            <p className="intro-text mb-5">{screening?.decision}</p>
 
-          <h5>The Decision</h5>
-          <p className="intro-text mb-5">Screening for prostate cancer has both potential benefits and harms.
-          Whether you should be screened for prostate cancer is a personal decision.
-          It depends on how worried you are about prostate cancer versus how worried you are
-          about the harms of testing.</p>
+            <h5>Is Screening Right For You?</h5>
+            <p>{screening?.screeningChoice}</p>
+            <p>Review the information on the next couple of pages. 
+            Then answer a few questions. This will help you and {patient?.pcpName} prepare to decide what 
+            is right for you at your next visit.</p>
+            </div>
 
-          <h5>Is screening right for you?</h5>
-          <p className="intro-text mb-5">We want to give you more information for this decision but first we want to know what
-          questions are at the top of your list. Please click <strong>My Questions&trade;</strong> below and take a few
-          minutes to help us learn how we can help you.</p>
+          : <p className="intro-text mb-5">You are up to date on cancer screenings.</p>
+          }
+
         </div>
       </div>
     );

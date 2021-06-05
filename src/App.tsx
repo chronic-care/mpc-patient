@@ -5,8 +5,9 @@ import QuestionnaireComponent from './components/questionnaire/QuestionnaireComp
 import { Questionnaire, QuestionnaireResponse, QuestionnaireResponseItem, QuestionnaireResponseItemAnswer } from './fhir-types/fhir-r4';
 import { submitQuestionnaireResponse, getQuestionnaire, getLocalQuestionnaire } from './service/fhirFacadeHelper';
 import { getFHIRData } from './service/fhirService';
-import { executeCQLSummary } from './service/cqlService';
+import { getPatientSummary, executeCancerScreening } from './service/cqlService';
 import { FHIRData } from './models/fhirResources';
+import { SummaryData, PatientSummary, ScreeningSummary } from './models/cqlSummary';
 import PatientContainer from './components/patient/PatientContainer';
 import DecisionSummaryContainer from './components/decision-summary/DecisionSummaryContainer';
 import FHIR from "fhirclient";
@@ -26,7 +27,7 @@ interface AppState {
   busy: Boolean,
   Status: string,
   fhirData?: FHIRData,
-  // Patient?: fhirclient.FHIR.Patient,
+  summaryData: SummaryData,
   ErrorMessage?: string,
   SelectedQuestionnaire?: Questionnaire,
   QuestionnaireResponse: QuestionnaireResponse,
@@ -48,6 +49,7 @@ export default class App extends React.Component<AppProps, AppState> {
       ErrorMessage: undefined,
       busy: true,
       fhirData: undefined,
+      summaryData: { patient: undefined, screening: undefined},
       SelectedQuestionnaire: undefined,
       QuestionnaireResponse: {
         resourceType: "QuestionnaireResponse",
@@ -74,7 +76,11 @@ export default class App extends React.Component<AppProps, AppState> {
         getFHIRData()
           .then((data: FHIRData) => {
             let patient = data.patient;
-            this.setState({ fhirData: data, busy: false })
+            this.setState({ fhirData: data })
+            this.state.summaryData.patient = getPatientSummary(data)
+            this.state.summaryData.screening = executeCancerScreening(data)
+            this.setState({ busy: false })
+
             patient.id ? this.ptRef = patient.id : this.ptRef = " ";
             this.ptDisplay = patient?.name?.[0]?.given?.[0] + ' ' + patient?.name?.[0]?.family;
             this.selectQuestionnaire(updatedQuestionnaire, this.ptRef, this.ptDisplay);
@@ -247,8 +253,8 @@ export default class App extends React.Component<AppProps, AppState> {
           {this.state.Status !== 'in-progress' ? (
             <div>
               <div className="patient-container">
-                <DecisionSummaryContainer fhirData={this.state.fhirData} busy={this.state.busy} />
-                <Button variant="outline-secondary" size='lg' className="next-button" onClick={this.startQuestionnaire}>Start <strong>MyQuestions</strong> </Button>
+                <DecisionSummaryContainer fhirData={this.state.fhirData} summaryData={this.state.summaryData} busy={this.state.busy} />
+                <Button variant="outline-secondary" size='lg' className="next-button" onClick={this.startQuestionnaire}><strong>Make Your Care Plan</strong> </Button>
               </div>
             </div>
           ) : (

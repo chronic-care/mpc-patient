@@ -18,6 +18,8 @@ include CDSConnectCommons version '1.0.0' called C3F
 include PreventiveCareConcepts version '1.0.0' called PCC
 // The PreventiveCareData library provides common data retrieval logic for preventive care guidelines.
 include PreventiveCareData version '1.0.0' called Data
+// Common expressions and functions for summaries.
+include PreventiveCareSummary version '1.0.0' called Summary
 // Prostate cancer screening logic from USPSTF
 include ProstateCancerScreening version '1.0.0' called PCS
 
@@ -25,37 +27,15 @@ include ProstateCancerScreening version '1.0.0' called PCS
 
 context Patient
 
-/*
- *  Summary Tuples are the primary interface for returning results to applications.
- */
-define PatientSummary: {
-  givenName: Data."Patient Given Name",
-  fullName: Data."Patient Full Name",
-  gender: Patient.gender.value,
-  birthSex: Data."Patient Birth Sex",
-  age: AgeInYears(),
-  race: Data."Patient Race Text",
-  pcpName: Data."Patient PCP name"
-}
-
 define ScreeningSummary: {
-  alertPatient: PCS."Needs Prostate Cancer Screening",
+  recommendScreening: PCS."Needs Prostate Cancer Screening",
+  name: 'Prostate Cancer Screening',
+  title: 'Get Ready for Your Visit: Decide If Prostate Cancer Screening Is Right for You',
   information: "Screening Information Statement",
-  riskStatement: "PSA risk statement",
-  riskPhrase: "PSA risk phrase"
+  decision: "Patient Decision",
+  screeningChoice: "Is Screening Right for You?",
+  questionnaire: 'mpc-prostate-questionnaire'
 }
-
-// TODO: nextSteps is a list that should be customized for each patient.
-define NextStepsSummary: {
-  nextSteps: {
-    "Next Step 3",
-    "Next Step 4"
-  }
-}
-
-/*
- * Patient messages personalized with content from patient's clinical data.
- */
 
 define "Screening Information Statement":
   if PCS."No PSA test results"
@@ -63,6 +43,16 @@ define "Screening Information Statement":
   else
     'Your PSA value was ' + ToString(PCS."Last PSA value") + ' on ' + ToString(PCS."Last PSA date")
 
+define "Patient Decision":
+  'Screening for prostate cancer has both potential benefits and harms. Whether you should be screened for prostate cancer is a personal decision. It depends on how worried you are about prostate cancer versus how worried you are about the harms of testing.'
+
+define "Is Screening Right for You?":
+  'Guidelines say that men aged 55 to 69 years should talk with their doctor every 2 years and decide if they want to be screened.'
+
+/*
+ * The following expressions are not currently used.
+ */
+ 
 // # Next Steps #
 
 define "Next Step 1":
@@ -129,78 +119,3 @@ define "PSA risk phrase":
 
 define "Need PSA statement":
   Data."Patient PCP name" + '\'s record says you last had a PSA test on ' + ToString(PCS."Last PSA date")
-
-/*
- *  Helper expressions and functions used by summaries.
- */
-
-// Returns the first-found display text for a CodeableConcept, looking first at the `text` attribute, then the
-// `display` on each `coding` until it finds a non-null value.
-// @param c - a FHIR CodeableConcept to get text from
-// @returns {System.String} the display text or null if none is found
-define function ConceptText(c FHIR.CodeableConcept):
-  Coalesce(c.text.value, Coalesce((c.coding) c2 return c2.display.value), Coalesce((c.coding) c3 return c3.code.value))
-
-// Returns a text representation of a Quantity with the Quantity's value and unit.
-// If the unit is {score}, then omit it (as it is not useful to display)
-// @param q - a FHIR Quantity to get text for
-// @returns {System.String} the text representation of the Quantity
-define function QuantityText(q FHIR.Quantity):
-  if (q is null) then null
-  else if (q.unit is not null and q.unit.value != '{score}') then ToString(q.value.value) + ' ' + q.unit.value
-  else if (q.code is not null and q.code.value != '{score}') then ToString(q.value.value) + ' ' + q.code.value
-  else ToString(q.value.value)
-
-// Returns a list of observation view Tuples.
-define function ReportObservations(ObsList List<Observation>):
-  ObsList o
-    return {   // result decimal value
-      Date:   ToString(C3F.FindDate(o)),
-      Name:   ConceptText(o.code),                                // display nanme
-      Result: QuantityText(o.value as FHIR.Quantity),             // result value with units
-      ResultValue: (o.value as FHIR.Quantity).value               // result value as Decimal
-    }
-    sort by Date asc
-
-define function ReportLabObservation(o FHIR.Observation):
-  if (o is null) then null
-  else
-    {
-      Date:   ToString(C3F.FindDate(o)),
-      Name:   ConceptText(o.code),                                // display nanme
-      ResultText: QuantityText(o.value as FHIR.Quantity),         // result value with units
-      ResultValue: (o.value as FHIR.Quantity).value,
-      ResultUnits: (o.value as FHIR.Quantity).unit.value,
-      ReferenceRange: LabReferenceRange(o),
-      Interpretation: LabInterpretation(o),
-      Flag: LabReferenceRangeFlag(o)   // true if value out of range, else false
-    }
-
-define function LabReferenceRange(o FHIR.Observation):
-  if (o is null or o.referenceRange is null) then null
-  else
-    Coalesce(First(o.referenceRange.text),
-      ToString(LabReferenceRangeLow(o)) + ' - ' + ToString(LabReferenceRangeHigh(o))
-    )
-
-define function LabReferenceRangeLow(o FHIR.Observation):
-  First(o.referenceRange).low.value
-
-define function LabReferenceRangeHigh(o FHIR.Observation):
-  First(o.referenceRange).high.value
-
-define function LabReferenceRangeFlag(o FHIR.Observation):
-  if (o.value.value < LabReferenceRangeLow(o)
-      or o.value.value > LabReferenceRangeHigh(o)) then true
-  else false
-
-define function LabInterpretation(o FHIR.Observation):
-  if (o.interpretation is not null) then
-    Coalesce(First(o.interpretation.text), First(First(o.interpretation).coding.display))
-  else if o.referenceRange is not null then
-    // Derive interpretation from the reference range, return null if within normal range.
-    if o.value.value < LabReferenceRangeLow(o) then 'L'
-    else if o.value.value > LabReferenceRangeHigh(o) then 'H'
-    else null
-  else
-    null

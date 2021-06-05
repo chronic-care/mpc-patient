@@ -1,14 +1,14 @@
 import FHIR from 'fhirclient';
 
-const epicScope = "launch openid patient/Patient.read patient/Practitioner.read patient/Condition.read patient/Observation.read patient/Procedure.read patient/CarePlan.read patient/Goal.read patient/Immunization.read patient/MedicationRequest.read";
+const epicScope = "launch openid patient/Patient.read patient/Practitioner.read patient/Condition.read patient/DiagnosticReport.read patient/Observation.read patient/Procedure.read patient/CarePlan.read patient/Goal.read patient/Immunization.read patient/MedicationRequest.read";
 
 FHIR.oauth2.authorize([
     {
         // Logica sandbox
-        issMatch: "https://api.logicahealth.org/AHRQDemo/data",
+        issMatch: /\blogicahealth\b/i,
         redirectUri: "./index.html",
         clientId: process.env.REACT_APP_CLIENT_ID_logica,
-        scope: "launch launch/patient patient/Patient.read patient/Questionnaire.read patient/QuestionnaireResponse.write patient/Condition.read patient/Observation.read"
+        scope: "launch launch/patient patient/Patient.read patient/Practitioner.read patient/Condition.read patient/DiagnosticReport.read patient/Observation.read patient/Procedure.read patient/CarePlan.read patient/Goal.read patient/Immunization.read patient/MedicationRequest.read patient/Questionnaire.read patient/QuestionnaireResponse.write"
     },
     {
         // Cerner sandbox

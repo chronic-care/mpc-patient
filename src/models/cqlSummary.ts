@@ -1,8 +1,13 @@
 
-export interface CQLSummary {
-  patient: PatientSummary,
-  screening: ScreeningSummary,
-  nextSteps: NextStepsSummary,
+// export interface CQLSummary {
+//   patient: PatientSummary,
+//   screening: ScreeningSummary,
+//   nextSteps: NextStepsSummary,
+// }
+
+export interface SummaryData {
+  patient?: PatientSummary,
+  screening?: [ScreeningSummary],
 }
 
 export interface PatientSummary {
@@ -16,10 +21,13 @@ export interface PatientSummary {
 }
 
 export interface ScreeningSummary {
-  alertPatient: Boolean,
+  recommendScreening: Boolean,
+  name: String,
+  title: String,
   information: String,
-  riskStatement: String,
-  riskPhrase: String,
+  decision: String,
+  screeningChoice: String,
+  questionnaire: String,
 }
 
 export interface NextStepsSummary {

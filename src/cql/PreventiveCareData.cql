@@ -21,7 +21,7 @@ include PreventiveCareConcepts version '1.0.0' called PCC
 
 context Patient
 
-// # General definitions based on value sets and codes #
+/* Data Elements */
 
 // Returns full name preferring 'official' use, if available.
 define "Patient Full Name":
@@ -49,7 +49,13 @@ define function GetPatientName(use String):
     return Name
   )
 
-define "Patient Birth Sex":
+define "Patient age in years based on date of birth":
+  AgeInYears()
+
+define "Patient administrative gender":
+  Patient.gender.value
+
+define "Patient birth sex":
   First(Patient.extension e
       where e.url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex'
   ).value.value
@@ -73,13 +79,27 @@ define "Patient Race Text":
     where E.url = 'text'
     return (E.value as FHIR.string)).value
 
-// # Preventive Care logic #
-
-define "Patient is male":
-  Patient.gender = 'male'
+/* Intermediate Data Elements */
 
 define "Patient is female":
-  Patient.gender = 'female'
+  case
+    when "Patient birth sex" = 'F' then true
+    when "Patient birth sex" = 'M' then false
+    // if birth sex is UNK or not available, then use Administrative Gender
+    when "Patient administrative gender" = 'female' then true
+    when "Patient administrative gender" = 'male' then false
+    else null
+  end
+
+define "Patient is male":
+  case
+    when "Patient birth sex" = 'F' then false
+    when "Patient birth sex" = 'M' then true
+    // if birth sex is UNK or not available, then use Administrative Gender
+    when "Patient administrative gender" = 'female' then false
+    when "Patient administrative gender" = 'male' then true
+    else null
+  end
 
 define "Race is African American":
   "Patient Race" contains PCC."Black or African American"

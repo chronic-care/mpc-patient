@@ -4,11 +4,13 @@ import DecisionSummary from './DecisionSummary';
 import BusySpinner from '../busy-spinner/BusySpinner';
 import BusyGroup from '../busy-spinner/BusyGroup';
 import { FHIRData } from '../../models/fhirResources';
+import { SummaryData } from '../../models/cqlSummary';
 // import Client from 'fhirclient/lib/Client';
 // import { fhirclient } from 'fhirclient/lib/types';
 
 interface DecisionSummaryContainerProps {
-  fhirData?: FHIRData
+  fhirData?: FHIRData,
+  summaryData?: SummaryData
 }
 
 interface DecisionSummaryContainerState {
@@ -38,7 +40,7 @@ export default class DecisionSummaryContainer extends React.Component<any, Decis
       <BusyGroup>
         <BusySpinner busy={this.state.busy} />
         {/* <DecisionSummary {...this.state} >{this.state.patient}</DecisionSummary> */}
-        <DecisionSummary fhirData={this.props.fhirData} />
+        <DecisionSummary fhirData={this.props.fhirData} summaryData={this.props.summaryData} />
       </BusyGroup>
     );
   }

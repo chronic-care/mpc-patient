@@ -5,8 +5,11 @@ import cqlfhir from 'cql-exec-fhir';
 
 import { Resource } from '../fhir-types/fhir-r4';
 import { FHIRData } from '../models/fhirResources';
-import { CQLSummary } from '../models/cqlSummary';
+import { PatientSummary, ScreeningSummary } from '../models/cqlSummary';
 
+import { patientSummaryLibrary, cancerScreeningLibraries, codeService } from './cqlLibraries';
+
+/*
 import FHIRHelpers from '../cql/FHIRHelpers.json';
 import CDSConnectCommons from '../cql/CDSConnectCommons.json';
 import PreventiveCareConcepts from '../cql/PreventiveCareConcepts.json';
@@ -25,10 +28,11 @@ const getSummaryLibrary = () => new cql.Library(ProstateCancerSummary, new cql.R
 
 const summaryLibrary = getSummaryLibrary();
 const codeService = new cql.CodeService(valueSetDB);
-const executor = new cql.Executor(summaryLibrary, codeService);
+const summaryExecutor = new cql.Executor(summaryLibrary, codeService);
+*/
 
-function getBundleEntries(resources: [Resource]) {
-  return resources.map((r: Resource) => ({ resource: r }))
+function getBundleEntries(resources?: [Resource]) {
+  return resources?.map((r: Resource) => ({ resource: r })) || []
 }
 
 function getPatientSource(data: FHIRData): unknown {
@@ -37,10 +41,12 @@ function getPatientSource(data: FHIRData): unknown {
     entry: [{ resource: data.patient }, { resource: data.practitioner },
       ...getBundleEntries(data.conditions),
       ...getBundleEntries(data.procedures),
-      ...getBundleEntries(data.goals),
+      ...getBundleEntries(data.diagnosticReports),
+      ...getBundleEntries(data.medications),
       ...getBundleEntries(data.immunizations),
       ...getBundleEntries(data.labResults),
       ...getBundleEntries(data.vitalSigns),
+      ...getBundleEntries(data.socialHistory),
     ]
   };
 
@@ -50,19 +56,51 @@ function getPatientSource(data: FHIRData): unknown {
   return patientSource;
 }
 
-export const executeCQLSummary = (fhirData: FHIRData): CQLSummary => {
-  const patientSource = getPatientSource(fhirData);
+export const getPatientSummary = (fhirData: FHIRData): PatientSummary => {
+  const fhirBundle = {
+    resourceType: 'Bundle',
+    entry: [{ resource: fhirData.patient }, { resource: fhirData.practitioner }]
+  };
 
+  const patientSource = cqlfhir.PatientSource.FHIRv401();
+  patientSource.loadBundles([fhirBundle]);
+
+  const executor = new cql.Executor(patientSummaryLibrary, codeService);
   const results = executor.exec(patientSource);
   const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
-  console.log(extractedSummary);
 
-  return {
-    patient: extractedSummary.PatientSummary,
-    screening: extractedSummary.ScreeningSummary,
-    nextSteps: extractedSummary.NextStepsSummary,
-  };
+  return extractedSummary.PatientSummary;
 };
+
+export const executeCancerScreening = (fhirData: FHIRData): [ScreeningSummary] => {
+  /* Unexpected: cannot reuse patientSource for multiple library executions, 
+      seems to be empty after first execution. */
+  // const patientSource = getPatientSource(fhirData);
+  return cancerScreeningLibraries.map((library: any) => (
+    executeScreeningLibrary(library, getPatientSource(fhirData))
+  )) as [ScreeningSummary]
+}
+
+const executeScreeningLibrary = (library: any, patientSource: any): ScreeningSummary => {
+  const executor = new cql.Executor(library, codeService);
+  const results = executor.exec(patientSource);
+  const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
+  const screeningSummary = extractedSummary.ScreeningSummary as ScreeningSummary;
+  console.log("ScreeningSummary: " + JSON.stringify(screeningSummary));
+
+  return screeningSummary;
+}
+
+/*
+export const executeCQLSummary = (fhirData: FHIRData): ScreeningSummary => {
+  const patientSource = getPatientSource(fhirData);
+
+  const results = summaryExecutor.exec(patientSource);
+  const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
+
+  return extractedSummary.ScreeningSummary;
+};
+*/
 
 /*
 const executeCQLExpression = (libraryToExecute: cql.Library, parameters: CQLExpressionParameters, expressionName: string): unknown => {
