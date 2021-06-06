@@ -9,28 +9,6 @@ import { PatientSummary, ScreeningSummary } from '../models/cqlSummary';
 
 import { patientSummaryLibrary, cancerScreeningLibraries, codeService } from './cqlLibraries';
 
-/*
-import FHIRHelpers from '../cql/FHIRHelpers.json';
-import CDSConnectCommons from '../cql/CDSConnectCommons.json';
-import PreventiveCareConcepts from '../cql/PreventiveCareConcepts.json';
-import PreventiveCareData from '../cql/PreventiveCareData.json';
-import ProstateCancerScreening from '../cql/ProstateCancerScreening.json';
-import ProstateCancerSummary from '../cql/ProstateCancerSummary.json';
-import valueSetDB from '../cql/valueset-db.json';
-
-const getSummaryLibrary = () => new cql.Library(ProstateCancerSummary, new cql.Repository({
-  ProstateCancerScreening,
-  PreventiveCareData,
-  PreventiveCareConcepts,
-  CDSConnectCommons,
-  FHIRHelpers,
-}));
-
-const summaryLibrary = getSummaryLibrary();
-const codeService = new cql.CodeService(valueSetDB);
-const summaryExecutor = new cql.Executor(summaryLibrary, codeService);
-*/
-
 function getBundleEntries(resources?: [Resource]) {
   return resources?.map((r: Resource) => ({ resource: r })) || []
 }
@@ -90,17 +68,6 @@ const executeScreeningLibrary = (library: any, patientSource: any): ScreeningSum
 
   return screeningSummary;
 }
-
-/*
-export const executeCQLSummary = (fhirData: FHIRData): ScreeningSummary => {
-  const patientSource = getPatientSource(fhirData);
-
-  const results = summaryExecutor.exec(patientSource);
-  const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
-
-  return extractedSummary.ScreeningSummary;
-};
-*/
 
 /*
 const executeCQLExpression = (libraryToExecute: cql.Library, parameters: CQLExpressionParameters, expressionName: string): unknown => {

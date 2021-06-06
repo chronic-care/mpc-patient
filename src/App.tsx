@@ -82,7 +82,7 @@ export default class App extends React.Component<AppProps, AppState> {
             this.setState({ busy: false })
 
             patient.id ? this.ptRef = patient.id : this.ptRef = " ";
-            this.ptDisplay = patient?.name?.[0]?.given?.[0] + ' ' + patient?.name?.[0]?.family;
+            this.ptDisplay = this.state.summaryData.patient?.fullName
             this.selectQuestionnaire(updatedQuestionnaire, this.ptRef, this.ptDisplay);
           }).catch(error => {
             this.setState({ busy: false, Status: 'error', ErrorMessage: error.message }, () => {

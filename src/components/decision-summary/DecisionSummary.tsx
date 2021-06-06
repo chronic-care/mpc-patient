@@ -1,10 +1,8 @@
 import React from 'react';
 import '../patient/Patient.css';
-// import { fhirclient } from 'fhirclient/lib/types';
 import { Patient } from '../../fhir-types/fhir-r4';
 import { FHIRData } from '../../models/fhirResources';
 import { SummaryData, PatientSummary, ScreeningSummary } from '../../models/cqlSummary';
-// import { executeCQLSummary } from '../../service/cqlService';
 
 interface DecisionSummaryProps {
   fhirData?: FHIRData,
@@ -37,7 +35,7 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
       <div className="patient-view">
         <div>
           <ul>
-            {this.state.screenings?.map(s => (<li>{s.name}
+            {this.state.screenings?.map(s => (<li key={s.name.toString()}>{s.name}
               <ul><li>{s.information}</li></ul>
             </li>))}
           </ul>
@@ -54,11 +52,11 @@ export default class DecisionSummary extends React.Component<DecisionSummaryProp
           <li>{this.props.fhirData?.carePlans?.length ?? 0} Care Plans</li>
           <li>{this.props.fhirData?.conditions?.length ?? 0} Health Issues</li>
           <li>{this.props.fhirData?.goals?.length ?? 0} Health Goals</li>
-          <li>{this.props.fhirData?.medications?.length ?? 0} Medications (5 years)</li>
+          <li>{this.props.fhirData?.medications?.length ?? 0} Medications (active, 1 year)</li>
           <li>{this.props.fhirData?.immunizations?.length ?? 0} Immunizations</li>
           <li>{this.props.fhirData?.procedures?.length ?? 0} Procedures</li>
           <li>{this.props.fhirData?.diagnosticReports?.length ?? 0} Diagnostic Reports</li>
-          <li>{this.props.fhirData?.vitalSigns?.length ?? 0} Vital Signs (6 months)</li>
+          <li>{this.props.fhirData?.vitalSigns?.length ?? 0} Vital Signs (3 months)</li>
           <li>{this.props.fhirData?.labResults?.length ?? 0} Lab Results</li>
           <li>{this.props.fhirData?.socialHistory?.length ?? 0} Smoking and OB/Gyn Status</li>
           </ul>
