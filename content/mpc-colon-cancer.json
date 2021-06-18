@@ -1,17 +1,10 @@
 {
-    "id": "mpc-prostate-questionnaire",
+    "id": "mpc-colon-cancer",
     "meta": {
         "versionId": "0.1.0",
-        "lastUpdated": "2020-07-09T17:25:11.807Z",
-        "source": "#GO30VbHeXpS2URar",
         "profile": [
             "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire|2.7",
             "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablequestionnaire"
-        ],
-        "tag": [
-            {
-                "code": "lformsVersion: 25.1.3"
-            }
         ]
     },
     "extension": [ {
@@ -37,25 +30,25 @@
         "valueString": "executable"
     } ],
     "status": "active",
-    "title": "Prostate Cancer Screening Questionnaire",
+    "title": "Colon Cancer Screening Questionnaire",
     "resourceType": "Questionnaire",
     "item": [
         {
             "type": "display",
-            "linkId": "learn-more-intro",
-            "text": "What Tests Are Used to Screen for Prostate Cancer?<br/><br/>Screening for prostate cancer is a blood test called the prostate-specific antigen or PSA test. A high PSA level can be a sign of prostate cancer. However, other things like an enlarged prostate or swelling of the prostate also cause a high PSA level. A biopsy of the prostate is necessary to make the diagnosis of cancer.",
+            "linkId": "learn-more-colon",
+            "text": "<h4>Tests That Look at Your Colon</h4>There are three tests that look at your colon: a colonoscopy, a flexible sigmoidoscopy, and a CT colonography (virtual colonoscopy).<ul><li>A <em>colonoscopy</em> is a long tube put in your rectum to look for growths in the colon. It has the advantage of being done less frequently &ndash; often every 10 years. It does require medicine to clean out your bowels, anesthesia, and a ride to and from the test.</li><li>A <em>sigmoidoscopy</em> is like a colonoscopy, but it is a shorter tube that only looks at the first three feet of your colon. It is done every 5 to 10 years. It still requires medicine to clean out your bowels but does not use anesthesia. It is not available in many communities.</li><li>A <em>CT colonoscopy</em> is a CT scan to look at your colon. It can find polyps and cancer and is done every 5 years. It does require medicine to clean out your bowels. Sometimes if finds things outside the colon and we not sure if this helps or hurts people.</li></ul>",
             "prefix": "Learn More"
         },
         {
             "type": "display",
-            "linkId": "learn-more-video",
-            "text": "Watch a 3-minute video about the PSA testing. We’d like to suggest you watch the video to help you prepare for your upcoming visit. This video can help you prepare to ask questions that are important to you when you visit with your provider. <br/> <br/> <a id=\"replace\" value=\"psa-video\"></a>",
+            "linkId": "learn-more-stool",
+            "text": "<h4>Tests That Look at Your Stool</h4>There are two types of tests that look at your stool: tests that look for microscopic blood or tests that look for abnormal DNA changes. If the results are abnormal, you need a colonoscopy to follow-up.<ul><li>A <em>FIT or FOBT</em> test look for microscopic blood in your stool. They can be done at home and are generally quick and easy. They need to be done every year and you have to collect a small stool sample.</li><li>A <em>stool DNA test</em> looks for microscopic blood and changes in the DNA in your stool. It can find more cancers than the stool blood tests but may not be better over time. They have more false positives, so you are more likely to need a follow-up colonoscopy. They need to be done every 1 to 3 years and you have to collect an entire bowel movement.</li></ul>",
             "prefix": "Learn More"
         },
         {
             "type": "display",
-            "linkId": "learn-more-uspstf",
-            "text": "The website linked below provides some information from the U.S. Preventive Services Task Force (USPSTF) about the benefits and harms of prostate cancer screening. This information can help you prepare to ask questions that are important to you when you visit with your provider.<br/> <br/> <img width=\"100%\" src=\"https://www.cdc.gov/cancer/prostate/images/prostate-decision-guide-300.jpg\"/> <a id=\"replace\" value=\"psa-benefits-link\"></a> ",
+            "linkId": "learn-more-choice",
+            "text": "<ul><li>Some patients like to do the tests that look at the colon, like the colonoscopy, because they can do the test less frequently and feel good that polyps are removed.</li><li>Other patients prefer the stool tests, because they are easy, save the same number of lives, and don’t mind doing a test every year.</li></ul>",
             "prefix": "Learn More"
         },
         {
@@ -81,21 +74,21 @@
                 {
                     "valueCoding": {
                         "code": "more-thought",
-                        "display": "I want to give it more thought.",
+                        "display": "I want to give it more thought",
                         "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
                     }
                 },
                 {
                     "valueCoding": {
-                        "code": "get-test",
-                        "display": "I think I want to get a PSA test.",
+                        "code": "get-colon-test",
+                        "display": "I want to get a test to look at the colon, like a colonoscopy",
                         "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
                     }
                 },
                 {
                     "valueCoding": {
-                        "code": "do-not-want-test",
-                        "display": "I think I do not want to get a PSA test.",
+                        "code": "get-stool-test",
+                        "display": "I want to get a stool test",
                         "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
                     }
                 }
@@ -145,7 +138,7 @@
                     ],
                     "required": false,
                     "linkId": "2.1",
-                    "text": "I know the benefits of getting a PSA test.",
+                    "text": "I know the benefits of the different tests.",
                     "answerOption": [
                         {
                             "valueCoding": {
@@ -214,7 +207,7 @@
                     ],
                     "required": false,
                     "linkId": "2.2",
-                    "text": "I know the risks of getting a PSA test.",
+                    "text": "I know the drawbacks of the different tests.",
                     "answerOption": [
                         {
                             "valueCoding": {
@@ -258,7 +251,7 @@
                     "code": [
                         {
                             "code": "x",
-                            "display": "Clear on what matters to me",
+                            "display": "I am clear about which benefits and drawbacks matter most to me.",
                             "system": "mpc codesystem"
                         }
                     ],
@@ -283,7 +276,7 @@
                     ],
                     "required": false,
                     "linkId": "2.3",
-                    "text": "I am clear about which benefits and risks matter most to me.",
+                    "text": "I am clear about which benefits and drawbacks matter most to me.",
                     "answerOption": [
                         {
                             "valueCoding": {
@@ -352,7 +345,7 @@
                     ],
                     "required": false,
                     "linkId": "2.4",
-                    "text": "I have enough support and advice to make a decision about getting a PSA test.",
+                    "text": "I have enough support and advice to make a decision about which test I want.",
                     "answerOption": [
                         {
                             "valueCoding": {
@@ -472,7 +465,7 @@
             }
           ],
           "prefix": "Next Steps",
-          "text": "Would you like to discuss prostate cancer screening at your next appointment? MyPreventiveCare can let you provider know what you want.",
+          "text": "Would you like to discuss colon cancer screening at your next appointment? MyPreventiveCare can let you provider know what you want.",
           "type": "boolean"
         },
         {
