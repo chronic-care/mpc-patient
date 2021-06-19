@@ -126,18 +126,21 @@ export default class QuestionnaireItemComponent extends React.Component<any, Que
     const options = {
       replace: (domNode: any) => {
         // psa-video
-        if (domNode?.next?.attribs?.id === 'replace' && domNode?.next?.attribs?.value === 'psa-video') {
+        if (domNode?.next?.attribs?.id === 'youtube' && domNode?.next?.attribs?.value !== undefined) {
           // return <iframe title="Flat Tire Video" ref={this.vidRef} width="100%" height="200" src="https://www.youtube.com/embed/QWcr9J3MLfo" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" onEnded={recordWebsiteVisit} allowFullScreen></iframe>
+          let youtubeId = domNode?.next?.attribs?.value
           return <YouTube
             id="youtube-video"
             ref={this.vidRef}
-            videoId="YqticruOZ7U"
+            videoId={youtubeId}
             opts={vidOptions}
             onEnd={recordWebsiteVisit}
           />
         // psa-benefits-link
-        } else if (domNode?.next?.attribs?.id === 'replace' && domNode?.next?.attribs?.value === 'psa-benefits-link') {
-          return <a id="replace" className="d-flex justify-content-center mt-1" target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/cancer/prostate/basic_info/benefits-harms.htm" ><button onClick={recordWebsiteVisit} className="btn btn-outline-secondary">Visit CDC Web Site</button></a>
+        } else if (domNode?.next?.attribs?.id === 'website' && domNode?.next?.attribs?.value !== undefined) {
+          let website = domNode?.next?.attribs?.value
+          return <a id="replace" className="d-flex justify-content-center mt-1" target="_blank" 
+            rel="noopener noreferrer" href={website} ><button onClick={recordWebsiteVisit} className="btn btn-outline-secondary">Visit Web Site</button></a>
         }
       }
     }

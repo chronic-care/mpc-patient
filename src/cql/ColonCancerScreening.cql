@@ -101,7 +101,7 @@ define ScreeningSummary: {
   information: "Screening Information Statement",
   decision: "Patient Decision",
   screeningChoice: "Is Screening Right for You?",
-  questionnaire: 'mpc-prostate-questionnaire'
+  questionnaire: 'mpc-colon-cancer'
 }
 
 define "Screening Information Statement":

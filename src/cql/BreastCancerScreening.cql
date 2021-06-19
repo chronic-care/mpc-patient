@@ -98,7 +98,7 @@ define ScreeningSummary: {
   information: "Screening Information Statement",
   decision: "Patient Decision",
   screeningChoice: "Is Screening Right for You?",
-  questionnaire: 'mpc-prostate-questionnaire'
+  questionnaire: 'mpc-breast-cancer'
 }
 
 define "Screening Information Statement":
@@ -108,7 +108,7 @@ define "Screening Information Statement":
     'Your last mammogram test was ' + ToString("Most recent mammogram".effective)
 
 define "Patient Decision":
-  'For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening'
+  'The decision to start screening for breast cancer in women prior to the age of 50 years should be an individual one. Women who place a higher value on the potential benefit than the harms may choose to begin screening between the ages of 40 and 49 years.'
 
 define "Is Screening Right for You?":
   'For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening.'

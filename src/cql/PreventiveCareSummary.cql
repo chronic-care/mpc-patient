@@ -24,6 +24,7 @@ include PreventiveCareData version '1.0.0' called Data
 context Patient
 
 define PatientSummary: {
+  patientId: Patient.id.value,
   givenName: Data."Patient Given Name",
   fullName: Data."Patient Full Name",
   gender: Patient.gender.value,

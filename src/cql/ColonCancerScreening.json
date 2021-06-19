@@ -4492,7 +4492,7 @@
                         }, {
                            "r" : "216",
                            "s" : [ {
-                              "value" : [ "'mpc-prostate-questionnaire'" ]
+                              "value" : [ "'mpc-colon-cancer'" ]
                            } ]
                         } ]
                      }, {
@@ -4657,10 +4657,10 @@
                   "name" : "questionnaire",
                   "value" : {
                      "localId" : "216",
-                     "locator" : "104:18-104:45",
+                     "locator" : "104:18-104:35",
                      "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                      "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                     "value" : "mpc-prostate-questionnaire",
+                     "value" : "mpc-colon-cancer",
                      "type" : "Literal"
                   }
                } ]

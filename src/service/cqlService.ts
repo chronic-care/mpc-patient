@@ -64,7 +64,7 @@ const executeScreeningLibrary = (library: any, patientSource: any): ScreeningSum
   const results = executor.exec(patientSource);
   const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
   const screeningSummary = extractedSummary.ScreeningSummary as ScreeningSummary;
-  console.log("ScreeningSummary: " + JSON.stringify(screeningSummary));
+  // console.log("ScreeningSummary: " + JSON.stringify(screeningSummary));
 
   return screeningSummary;
 }

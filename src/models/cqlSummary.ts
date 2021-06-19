@@ -1,4 +1,6 @@
 
+import { Patient } from '../fhir-types/fhir-r4';
+
 // export interface CQLSummary {
 //   patient: PatientSummary,
 //   screening: ScreeningSummary,
@@ -11,6 +13,7 @@ export interface SummaryData {
 }
 
 export interface PatientSummary {
+  patientId: String,
   givenName: String,
   fullName: String,
   age: String,

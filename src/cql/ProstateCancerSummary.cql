@@ -30,11 +30,11 @@ context Patient
 define ScreeningSummary: {
   recommendScreening: PCS."Needs Prostate Cancer Screening",
   name: 'Prostate Cancer Screening',
-  title: 'Get Ready for Your Visit: Decide If Prostate Cancer Screening Is Right for You',
+  title: 'Decide If Prostate Cancer Screening Is Right for You',
   information: "Screening Information Statement",
   decision: "Patient Decision",
   screeningChoice: "Is Screening Right for You?",
-  questionnaire: 'mpc-prostate-questionnaire'
+  questionnaire: 'mpc-prostate-cancer'
 }
 
 define "Screening Information Statement":
@@ -52,7 +52,7 @@ define "Is Screening Right for You?":
 /*
  * The following expressions are not currently used.
  */
- 
+
 // # Next Steps #
 
 define "Next Step 1":

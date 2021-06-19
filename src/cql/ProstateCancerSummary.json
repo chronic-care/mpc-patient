@@ -503,7 +503,7 @@
                         }, {
                            "r" : "11",
                            "s" : [ {
-                              "value" : [ "'Get Ready for Your Visit: Decide If Prostate Cancer Screening Is Right for You'" ]
+                              "value" : [ "'Decide If Prostate Cancer Screening Is Right for You'" ]
                            } ]
                         } ]
                      }, {
@@ -547,7 +547,7 @@
                         }, {
                            "r" : "35",
                            "s" : [ {
-                              "value" : [ "'mpc-prostate-questionnaire'" ]
+                              "value" : [ "'mpc-prostate-cancer'" ]
                            } ]
                         } ]
                      }, {
@@ -676,10 +676,10 @@
                   "name" : "title",
                   "value" : {
                      "localId" : "11",
-                     "locator" : "33:10-33:89",
+                     "locator" : "33:10-33:63",
                      "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                      "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                     "value" : "Get Ready for Your Visit: Decide If Prostate Cancer Screening Is Right for You",
+                     "value" : "Decide If Prostate Cancer Screening Is Right for You",
                      "type" : "Literal"
                   }
                }, {
@@ -713,10 +713,10 @@
                   "name" : "questionnaire",
                   "value" : {
                      "localId" : "35",
-                     "locator" : "37:18-37:45",
+                     "locator" : "37:18-37:38",
                      "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                      "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                     "value" : "mpc-prostate-questionnaire",
+                     "value" : "mpc-prostate-cancer",
                      "type" : "Literal"
                   }
                } ]
@@ -733,7 +733,7 @@
                "s" : {
                   "r" : "44",
                   "s" : [ {
-                     "value" : [ "/*\n * The following expressions are not currently used.\n */\n \n// # Next Steps #","define ","\"Next Step 1\"",":\n  " ]
+                     "value" : [ "/*\n * The following expressions are not currently used.\n */\n\n// # Next Steps #","define ","\"Next Step 1\"",":\n  " ]
                   }, {
                      "r" : "43",
                      "s" : [ {
