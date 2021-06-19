@@ -1,7 +1,7 @@
 "exampleQuestionnaireResponse.json" is an example of the output of the mypain-opiod.json questionnaire submitted.
 
 
-<H4> MyPAIN app </H4>
+<H4> My Preventive Care (MPC) app </H4>
 
 1.  Open linux shell
 2.  cd "/mnt/d/projects/mypain"
@@ -29,5 +29,4 @@
 
 1.  Create a Parameters resource contaning a Bundle of Observations and a ConceptMap url similar to those found at "\cds4cpm-mypain\examples\exampleObservationBundle.json" and "\cds4cpm-mypain\examples\exampleConceptMap.json".
 2.  Send the QuestionnaireResponse to the cqfruler as "POST http://localhost:8080/cqf-ruler-r4/fhir/QuestionnaireResponse/$extract".  Parameter name is questionnaireResponse.
-3.  The returning Bundle of Observations will be a transformed Bundle with the site codes replacing the original codes for the values of the Observations or if "observationTransform.replaceCode=false" then the site codes will be added as a new Observation value code with the concept map's corresponding display value. 
-
+3.  The returning Bundle of Observations will be a transformed Bundle with the site codes replacing the original codes for the values of the Observations or if "observationTransform.replaceCode=false" then the site codes will be added as a new Observation value code with the concept map's corresponding display value.

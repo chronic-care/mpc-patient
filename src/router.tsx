@@ -7,9 +7,8 @@ import {ConfirmationPage } from './components/confirmation-page/ConfirmationPage
 const Router = () => {
     <BrowserRouter>
         <Switch>
-            <Route path='/' component={App} />
             <Route path='/confirmation' component={ConfirmationPage} />
+            <Route path='/' component={App} />
         </Switch>
     </BrowserRouter>
 }
-

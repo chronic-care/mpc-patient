@@ -12,6 +12,8 @@ Thumbs.db
 ######################
 node_modules/*
 build/*
+client-ids/*
+.env.local
 .DS_Store
 .idea/
 .DS_Store
