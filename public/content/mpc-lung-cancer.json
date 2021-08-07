@@ -1,5 +1,5 @@
 {
-    "id": "mpc-prostate-cancer",
+    "id": "mpc-lung-cancer",
     "meta": {
         "versionId": "0.1.0",
         "profile": [
@@ -30,25 +30,13 @@
         "valueString": "executable"
     } ],
     "status": "active",
-    "title": "Prostate Cancer Screening Questionnaire",
+    "title": "Lung Cancer Screening Questionnaire",
     "resourceType": "Questionnaire",
     "item": [
         {
             "type": "display",
-            "linkId": "learn-more-intro",
-            "text": "What Tests Are Used to Screen for Prostate Cancer?<br/><br/>Screening for prostate cancer is a blood test called the prostate-specific antigen or PSA test. A high PSA level can be a sign of prostate cancer. However, other things like an enlarged prostate or swelling of the prostate also cause a high PSA level. A biopsy of the prostate is necessary to make the diagnosis of cancer.",
-            "prefix": "Learn More"
-        },
-        {
-            "type": "display",
-            "linkId": "learn-more-video",
-            "text": "Watch a 3-minute video about the PSA testing. We’d like to suggest you watch the video to help you prepare for your upcoming visit. This video can help you prepare to ask questions that are important to you when you visit with your provider. <br/> <br/> <a id=\"youtube\" value=\"YqticruOZ7U\"></a>",
-            "prefix": "Learn More"
-        },
-        {
-            "type": "display",
             "linkId": "learn-more-uspstf",
-            "text": "See a picture of what happens to 1,000 men who chose to get a PSA test. It shows you how many men benefit from screening – don’t die from prostate cancer. And it shows you how many men are harmed – false positives and complications from treatment.<br/> <br/> <img width=\"100%\" src=\"https://www.cdc.gov/cancer/prostate/images/prostate-decision-guide-300.jpg\"/> <a id=\"website\" value=\"https://www.uspreventiveservicestaskforce.org/Home/GetFileByID/3795\"></a> ",
+            "text": "The website linked below provides some information from the U.S. Preventive Services Task Force (USPSTF) about the benefits and harms of lung cancer screening. This information can help you prepare to ask questions that are important to you when you visit your doctor.<br/> <br/> <a id=\"website\" value=\"https://effectivehealthcare.ahrq.gov/decision-aids/lung-cancer-screening/patient.html\"></a> ",
             "prefix": "Learn More"
         },
         {
@@ -81,14 +69,14 @@
                 {
                     "valueCoding": {
                         "code": "get-test",
-                        "display": "I want to get a PSA test",
+                        "display": "I want to get tested for lung cancer",
                         "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
                     }
                 },
                 {
                     "valueCoding": {
                         "code": "do-not-want-test",
-                        "display": "I do not want to get a PSA test",
+                        "display": "I do not want to get tested for lung cancer",
                         "system": "http://fhir.org/guides/preventive-care/CodeSystem/mpc-questionnaire-codes"
                     }
                 }
@@ -138,7 +126,7 @@
                     ],
                     "required": false,
                     "linkId": "2.1",
-                    "text": "I know the benefits of getting a PSA test.",
+                    "text": "I know the benefits of getting a low dose CT scan.",
                     "answerOption": [
                         {
                             "valueCoding": {
@@ -207,7 +195,7 @@
                     ],
                     "required": false,
                     "linkId": "2.2",
-                    "text": "I know the risks of getting a PSA test.",
+                    "text": "I know the risks of getting a low dose CT scan.",
                     "answerOption": [
                         {
                             "valueCoding": {
@@ -345,7 +333,7 @@
                     ],
                     "required": false,
                     "linkId": "2.4",
-                    "text": "I have enough support and advice to make a decision about getting a PSA test.",
+                    "text": "I have enough support and advice to make a decision about getting a low dose CT scan.",
                     "answerOption": [
                         {
                             "valueCoding": {
@@ -465,7 +453,7 @@
             }
           ],
           "prefix": "Next Steps",
-          "text": "Would you like to discuss prostate cancer screening at your next appointment? MyPreventiveCare can let your provider know what you want.",
+          "text": "Would you like to discuss lung cancer screening at your next appointment? MyPreventiveCare can let your provider know what you want.",
           "type": "boolean"
         },
         {

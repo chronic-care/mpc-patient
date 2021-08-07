@@ -1,11 +1,12 @@
 
 import { Patient } from '../fhir-types/fhir-r4';
 
-// export interface CQLSummary {
-//   patient: PatientSummary,
-//   screening: ScreeningSummary,
-//   nextSteps: NextStepsSummary,
-// }
+export interface CQLLibrary {
+  // cql.Library reference
+  library: any,
+  // cql.CodeService reference
+  codeService: any
+}
 
 export interface SummaryData {
   patient?: PatientSummary,
@@ -24,12 +25,13 @@ export interface PatientSummary {
 }
 
 export interface ScreeningSummary {
+  notifyPatient: Boolean,
   recommendScreening: Boolean,
   name: String,
   title: String,
-  information: String,
-  decision: String,
-  screeningChoice: String,
+  information: [String],
+  decision: [String],
+  recommendation: [String],
   questionnaire: String,
 }
 

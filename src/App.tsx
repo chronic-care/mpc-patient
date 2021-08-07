@@ -7,7 +7,7 @@ import Home from "./Home";
 import { FHIRData } from './models/fhirResources';
 import { PatientSummary, ScreeningSummary } from './models/cqlSummary';
 import { getFHIRData } from './service/fhirService';
-import { getPatientSummary, executeCancerScreening } from './service/cqlService';
+import { getPatientSummary, executeScreenings } from './service/cqlService';
 import { ScreeningDecision } from "./components/decision/ScreeningDecision";
 import { QuestionnaireHandler } from "./components/questionnaire/QuestionnaireHandler";
 import { ConfirmationPage } from './components/confirmation-page/ConfirmationPage'
@@ -36,7 +36,7 @@ export default class App extends React.Component<AppProps, AppState> {
         getFHIRData().then((data: FHIRData) => {
             this.setState({ fhirData: data })
             this.setState({ patientSummary: getPatientSummary(data) })
-            this.setState({ screenings: executeCancerScreening(data) })
+            this.setState({ screenings: executeScreenings(data) })
         })
     }
 

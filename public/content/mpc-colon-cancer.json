@@ -465,7 +465,7 @@
             }
           ],
           "prefix": "Next Steps",
-          "text": "Would you like to discuss colon cancer screening at your next appointment? MyPreventiveCare can let you provider know what you want.",
+          "text": "Would you like to discuss colon cancer screening at your next appointment? MyPreventiveCare can let your provider know what you want.",
           "type": "boolean"
         },
         {

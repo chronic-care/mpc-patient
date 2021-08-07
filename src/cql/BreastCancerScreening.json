@@ -6,7 +6,7 @@
       }, {
          "type" : "Annotation",
          "s" : {
-            "r" : "159",
+            "r" : "175",
             "s" : [ {
                "value" : [ "","library BreastCancerScreening version '1.0.0'" ]
             } ]
@@ -2618,178 +2618,9 @@
                } ]
             }
          }, {
-            "localId" : "153",
-            "locator" : "104:1-108:81",
-            "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-            "name" : "Screening Information Statement",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "annotation" : [ {
-               "type" : "Annotation",
-               "s" : {
-                  "r" : "153",
-                  "s" : [ {
-                     "value" : [ "","define ","\"Screening Information Statement\"",":\n  " ]
-                  }, {
-                     "r" : "152",
-                     "s" : [ {
-                        "value" : [ "if " ]
-                     }, {
-                        "r" : "145",
-                        "s" : [ {
-                           "value" : [ "\"Never had a mammogram\"" ]
-                        } ]
-                     }, {
-                        "value" : [ "\n    then " ]
-                     }, {
-                        "r" : "146",
-                        "s" : [ {
-                           "value" : [ "'You have never had a mammogram'" ]
-                        } ]
-                     }, {
-                        "value" : [ "\n  else\n    " ]
-                     }, {
-                        "r" : "151",
-                        "s" : [ {
-                           "r" : "147",
-                           "s" : [ {
-                              "value" : [ "'Your last mammogram test was '" ]
-                           } ]
-                        }, {
-                           "value" : [ " + " ]
-                        }, {
-                           "r" : "150",
-                           "s" : [ {
-                              "value" : [ "ToString","(" ]
-                           }, {
-                              "r" : "149",
-                              "s" : [ {
-                                 "r" : "148",
-                                 "s" : [ {
-                                    "value" : [ "\"Most recent mammogram\"" ]
-                                 } ]
-                              }, {
-                                 "value" : [ "." ]
-                              }, {
-                                 "r" : "149",
-                                 "s" : [ {
-                                    "value" : [ "effective" ]
-                                 } ]
-                              } ]
-                           }, {
-                              "value" : [ ")" ]
-                           } ]
-                        } ]
-                     } ]
-                  } ]
-               }
-            } ],
-            "expression" : {
-               "localId" : "152",
-               "locator" : "105:3-108:81",
-               "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-               "type" : "If",
-               "condition" : {
-                  "localId" : "145",
-                  "locator" : "105:6-105:28",
-                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
-                  "name" : "Never had a mammogram",
-                  "type" : "ExpressionRef"
-               },
-               "then" : {
-                  "localId" : "146",
-                  "locator" : "106:10-106:41",
-                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                  "value" : "You have never had a mammogram",
-                  "type" : "Literal"
-               },
-               "else" : {
-                  "localId" : "151",
-                  "locator" : "108:5-108:81",
-                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-                  "type" : "Concatenate",
-                  "operand" : [ {
-                     "localId" : "147",
-                     "locator" : "108:5-108:35",
-                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                     "value" : "Your last mammogram test was ",
-                     "type" : "Literal"
-                  }, {
-                     "localId" : "150",
-                     "locator" : "108:39-108:81",
-                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-                     "type" : "ToString",
-                     "operand" : {
-                        "name" : "ToDateTime",
-                        "libraryName" : "FHIRHelpers",
-                        "type" : "FunctionRef",
-                        "operand" : [ {
-                           "asType" : "{http://hl7.org/fhir}dateTime",
-                           "type" : "As",
-                           "operand" : {
-                              "localId" : "149",
-                              "locator" : "108:48-108:80",
-                              "path" : "effective",
-                              "type" : "Property",
-                              "resultTypeSpecifier" : {
-                                 "type" : "ChoiceTypeSpecifier",
-                                 "choice" : [ {
-                                    "name" : "{http://hl7.org/fhir}dateTime",
-                                    "type" : "NamedTypeSpecifier"
-                                 }, {
-                                    "name" : "{http://hl7.org/fhir}Period",
-                                    "type" : "NamedTypeSpecifier"
-                                 } ]
-                              },
-                              "source" : {
-                                 "localId" : "148",
-                                 "locator" : "108:48-108:70",
-                                 "resultTypeName" : "{http://hl7.org/fhir}DiagnosticReport",
-                                 "name" : "Most recent mammogram",
-                                 "type" : "ExpressionRef"
-                              }
-                           }
-                        } ]
-                     }
-                  } ]
-               }
-            }
-         }, {
-            "localId" : "156",
-            "locator" : "110:1-111:258",
-            "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-            "name" : "Patient Decision",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "annotation" : [ {
-               "type" : "Annotation",
-               "s" : {
-                  "r" : "156",
-                  "s" : [ {
-                     "value" : [ "","define ","\"Patient Decision\"",":\n  " ]
-                  }, {
-                     "r" : "155",
-                     "s" : [ {
-                        "value" : [ "'The decision to start screening for breast cancer in women prior to the age of 50 years should be an individual one. Women who place a higher value on the potential benefit than the harms may choose to begin screening between the ages of 40 and 49 years.'" ]
-                     } ]
-                  } ]
-               }
-            } ],
-            "expression" : {
-               "localId" : "155",
-               "locator" : "111:3-111:258",
-               "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-               "valueType" : "{urn:hl7-org:elm-types:r1}String",
-               "value" : "The decision to start screening for breast cancer in women prior to the age of 50 years should be an individual one. Women who place a higher value on the potential benefit than the harms may choose to begin screening between the ages of 40 and 49 years.",
-               "type" : "Literal"
-            }
-         }, {
             "localId" : "159",
-            "locator" : "113:1-114:256",
-            "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-            "name" : "Is Screening Right for You?",
+            "locator" : "105:1-111:32",
+            "name" : "Patient Information",
             "context" : "Patient",
             "accessLevel" : "Public",
             "annotation" : [ {
@@ -2797,42 +2628,517 @@
                "s" : {
                   "r" : "159",
                   "s" : [ {
-                     "value" : [ "","define ","\"Is Screening Right for You?\"",":\n  " ]
+                     "value" : [ "","define ","\"Patient Information\"",":\n  " ]
                   }, {
                      "r" : "158",
                      "s" : [ {
-                        "value" : [ "'For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening.'" ]
+                        "s" : [ {
+                           "r" : "155",
+                           "s" : [ {
+                              "r" : "154",
+                              "s" : [ {
+                                 "value" : [ "(" ]
+                              }, {
+                                 "r" : "154",
+                                 "s" : [ {
+                                    "value" : [ "List{\n    " ]
+                                 }, {
+                                    "r" : "153",
+                                    "s" : [ {
+                                       "value" : [ "if " ]
+                                    }, {
+                                       "r" : "146",
+                                       "s" : [ {
+                                          "value" : [ "\"Never had a mammogram\"" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\n      then " ]
+                                    }, {
+                                       "r" : "147",
+                                       "s" : [ {
+                                          "value" : [ "'You have never had a mammogram'" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\n    else\n      " ]
+                                    }, {
+                                       "r" : "152",
+                                       "s" : [ {
+                                          "r" : "148",
+                                          "s" : [ {
+                                             "value" : [ "'Your last mammogram test was '" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " + " ]
+                                       }, {
+                                          "r" : "151",
+                                          "s" : [ {
+                                             "value" : [ "ToString","(" ]
+                                          }, {
+                                             "r" : "150",
+                                             "s" : [ {
+                                                "r" : "149",
+                                                "s" : [ {
+                                                   "value" : [ "\"Most recent mammogram\"" ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "." ]
+                                             }, {
+                                                "r" : "150",
+                                                "s" : [ {
+                                                   "value" : [ "effective" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ")" ]
+                                          } ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "\n  }" ]
+                                 } ]
+                              }, {
+                                 "value" : [ ")" ]
+                              } ]
+                           }, {
+                              "value" : [ " ","Text" ]
+                           } ]
+                        } ]
+                     }, {
+                        "value" : [ " " ]
+                     }, {
+                        "r" : "157",
+                        "s" : [ {
+                           "value" : [ "where " ]
+                        }, {
+                           "r" : "157",
+                           "s" : [ {
+                              "r" : "156",
+                              "s" : [ {
+                                 "value" : [ "Text" ]
+                              } ]
+                           }, {
+                              "value" : [ " is not null" ]
+                           } ]
+                        } ]
                      } ]
                   } ]
                }
             } ],
+            "resultTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "NamedTypeSpecifier"
+               }
+            },
             "expression" : {
                "localId" : "158",
-               "locator" : "114:3-114:256",
-               "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-               "valueType" : "{urn:hl7-org:elm-types:r1}String",
-               "value" : "For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening.",
-               "type" : "Literal"
+               "locator" : "106:3-111:32",
+               "type" : "Query",
+               "resultTypeSpecifier" : {
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{urn:hl7-org:elm-types:r1}String",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               },
+               "source" : [ {
+                  "localId" : "155",
+                  "locator" : "106:3-111:9",
+                  "alias" : "Text",
+                  "resultTypeSpecifier" : {
+                     "type" : "ListTypeSpecifier",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "NamedTypeSpecifier"
+                     }
+                  },
+                  "expression" : {
+                     "localId" : "154",
+                     "locator" : "106:3-111:4",
+                     "type" : "List",
+                     "resultTypeSpecifier" : {
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     },
+                     "element" : [ {
+                        "localId" : "153",
+                        "locator" : "107:5-110:83",
+                        "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "If",
+                        "condition" : {
+                           "localId" : "146",
+                           "locator" : "107:8-107:30",
+                           "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                           "name" : "Never had a mammogram",
+                           "type" : "ExpressionRef"
+                        },
+                        "then" : {
+                           "localId" : "147",
+                           "locator" : "108:12-108:43",
+                           "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "You have never had a mammogram",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "localId" : "152",
+                           "locator" : "110:7-110:83",
+                           "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "Concatenate",
+                           "operand" : [ {
+                              "localId" : "148",
+                              "locator" : "110:7-110:37",
+                              "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Your last mammogram test was ",
+                              "type" : "Literal"
+                           }, {
+                              "localId" : "151",
+                              "locator" : "110:41-110:83",
+                              "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "ToString",
+                              "operand" : {
+                                 "name" : "ToDateTime",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "asType" : "{http://hl7.org/fhir}dateTime",
+                                    "type" : "As",
+                                    "operand" : {
+                                       "localId" : "150",
+                                       "locator" : "110:50-110:82",
+                                       "path" : "effective",
+                                       "type" : "Property",
+                                       "resultTypeSpecifier" : {
+                                          "type" : "ChoiceTypeSpecifier",
+                                          "choice" : [ {
+                                             "name" : "{http://hl7.org/fhir}dateTime",
+                                             "type" : "NamedTypeSpecifier"
+                                          }, {
+                                             "name" : "{http://hl7.org/fhir}Period",
+                                             "type" : "NamedTypeSpecifier"
+                                          } ]
+                                       },
+                                       "source" : {
+                                          "localId" : "149",
+                                          "locator" : "110:50-110:72",
+                                          "resultTypeName" : "{http://hl7.org/fhir}DiagnosticReport",
+                                          "name" : "Most recent mammogram",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }
+                                 } ]
+                              }
+                           } ]
+                        }
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "localId" : "157",
+                  "locator" : "111:11-111:32",
+                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "Not",
+                  "operand" : {
+                     "locator" : "111:17-111:32",
+                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "type" : "IsNull",
+                     "operand" : {
+                        "localId" : "156",
+                        "locator" : "111:17-111:20",
+                        "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                        "name" : "Text",
+                        "type" : "AliasRef"
+                     }
+                  }
+               }
             }
          }, {
-            "localId" : "163",
-            "locator" : "94:1-102:1",
+            "localId" : "167",
+            "locator" : "113:1-116:32",
+            "name" : "Patient Decision",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "167",
+                  "s" : [ {
+                     "value" : [ "","define ","\"Patient Decision\"",":\n  " ]
+                  }, {
+                     "r" : "166",
+                     "s" : [ {
+                        "s" : [ {
+                           "r" : "163",
+                           "s" : [ {
+                              "r" : "162",
+                              "s" : [ {
+                                 "value" : [ "(" ]
+                              }, {
+                                 "r" : "162",
+                                 "s" : [ {
+                                    "value" : [ "List{\n    " ]
+                                 }, {
+                                    "r" : "161",
+                                    "s" : [ {
+                                       "value" : [ "'The decision to start screening for breast cancer in women prior to the age of 50 years should be an individual one. Women who place a higher value on the potential benefit than the harms may choose to begin screening between the ages of 40 and 49 years.'" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "\n  }" ]
+                                 } ]
+                              }, {
+                                 "value" : [ ")" ]
+                              } ]
+                           }, {
+                              "value" : [ " ","Text" ]
+                           } ]
+                        } ]
+                     }, {
+                        "value" : [ " " ]
+                     }, {
+                        "r" : "165",
+                        "s" : [ {
+                           "value" : [ "where " ]
+                        }, {
+                           "r" : "165",
+                           "s" : [ {
+                              "r" : "164",
+                              "s" : [ {
+                                 "value" : [ "Text" ]
+                              } ]
+                           }, {
+                              "value" : [ " is not null" ]
+                           } ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "resultTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "NamedTypeSpecifier"
+               }
+            },
+            "expression" : {
+               "localId" : "166",
+               "locator" : "114:3-116:32",
+               "type" : "Query",
+               "resultTypeSpecifier" : {
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{urn:hl7-org:elm-types:r1}String",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               },
+               "source" : [ {
+                  "localId" : "163",
+                  "locator" : "114:3-116:9",
+                  "alias" : "Text",
+                  "resultTypeSpecifier" : {
+                     "type" : "ListTypeSpecifier",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "NamedTypeSpecifier"
+                     }
+                  },
+                  "expression" : {
+                     "localId" : "162",
+                     "locator" : "114:3-116:4",
+                     "type" : "List",
+                     "resultTypeSpecifier" : {
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     },
+                     "element" : [ {
+                        "localId" : "161",
+                        "locator" : "115:5-115:260",
+                        "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "The decision to start screening for breast cancer in women prior to the age of 50 years should be an individual one. Women who place a higher value on the potential benefit than the harms may choose to begin screening between the ages of 40 and 49 years.",
+                        "type" : "Literal"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "localId" : "165",
+                  "locator" : "116:11-116:32",
+                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "Not",
+                  "operand" : {
+                     "locator" : "116:17-116:32",
+                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "type" : "IsNull",
+                     "operand" : {
+                        "localId" : "164",
+                        "locator" : "116:17-116:20",
+                        "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                        "name" : "Text",
+                        "type" : "AliasRef"
+                     }
+                  }
+               }
+            }
+         }, {
+            "localId" : "175",
+            "locator" : "118:1-121:32",
+            "name" : "Patient Recommendation",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "175",
+                  "s" : [ {
+                     "value" : [ "","define ","\"Patient Recommendation\"",":\n  " ]
+                  }, {
+                     "r" : "174",
+                     "s" : [ {
+                        "s" : [ {
+                           "r" : "171",
+                           "s" : [ {
+                              "r" : "170",
+                              "s" : [ {
+                                 "value" : [ "(" ]
+                              }, {
+                                 "r" : "170",
+                                 "s" : [ {
+                                    "value" : [ "List{\n    " ]
+                                 }, {
+                                    "r" : "169",
+                                    "s" : [ {
+                                       "value" : [ "'For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening.'" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "\n  }" ]
+                                 } ]
+                              }, {
+                                 "value" : [ ")" ]
+                              } ]
+                           }, {
+                              "value" : [ " ","Text" ]
+                           } ]
+                        } ]
+                     }, {
+                        "value" : [ " " ]
+                     }, {
+                        "r" : "173",
+                        "s" : [ {
+                           "value" : [ "where " ]
+                        }, {
+                           "r" : "173",
+                           "s" : [ {
+                              "r" : "172",
+                              "s" : [ {
+                                 "value" : [ "Text" ]
+                              } ]
+                           }, {
+                              "value" : [ " is not null" ]
+                           } ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "resultTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "NamedTypeSpecifier"
+               }
+            },
+            "expression" : {
+               "localId" : "174",
+               "locator" : "119:3-121:32",
+               "type" : "Query",
+               "resultTypeSpecifier" : {
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{urn:hl7-org:elm-types:r1}String",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               },
+               "source" : [ {
+                  "localId" : "171",
+                  "locator" : "119:3-121:9",
+                  "alias" : "Text",
+                  "resultTypeSpecifier" : {
+                     "type" : "ListTypeSpecifier",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "NamedTypeSpecifier"
+                     }
+                  },
+                  "expression" : {
+                     "localId" : "170",
+                     "locator" : "119:3-121:4",
+                     "type" : "List",
+                     "resultTypeSpecifier" : {
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     },
+                     "element" : [ {
+                        "localId" : "169",
+                        "locator" : "120:5-120:258",
+                        "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening.",
+                        "type" : "Literal"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "localId" : "173",
+                  "locator" : "121:11-121:32",
+                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "Not",
+                  "operand" : {
+                     "locator" : "121:17-121:32",
+                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "type" : "IsNull",
+                     "operand" : {
+                        "localId" : "172",
+                        "locator" : "121:17-121:20",
+                        "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                        "name" : "Text",
+                        "type" : "AliasRef"
+                     }
+                  }
+               }
+            }
+         }, {
+            "localId" : "179",
+            "locator" : "94:1-103:1",
             "name" : "ScreeningSummary",
             "context" : "Patient",
             "accessLevel" : "Public",
             "annotation" : [ {
                "type" : "Annotation",
                "s" : {
-                  "r" : "163",
+                  "r" : "179",
                   "s" : [ {
                      "value" : [ "/* Screening Summary */","define ","ScreeningSummary",": " ]
                   }, {
-                     "r" : "162",
+                     "r" : "178",
                      "s" : [ {
                         "value" : [ "{\n  " ]
                      }, {
                         "s" : [ {
-                           "value" : [ "recommendScreening",": " ]
+                           "value" : [ "notifyPatient",": " ]
                         }, {
                            "r" : "142",
                            "s" : [ {
@@ -2843,9 +3149,20 @@
                         "value" : [ ",\n  " ]
                      }, {
                         "s" : [ {
-                           "value" : [ "name",": " ]
+                           "value" : [ "recommendScreening",": " ]
                         }, {
                            "r" : "143",
+                           "s" : [ {
+                              "value" : [ "\"Recommend Screening\"" ]
+                           } ]
+                        } ]
+                     }, {
+                        "value" : [ ",\n  " ]
+                     }, {
+                        "s" : [ {
+                           "value" : [ "name",": " ]
+                        }, {
+                           "r" : "144",
                            "s" : [ {
                               "value" : [ "'Breast Cancer Screening'" ]
                            } ]
@@ -2856,7 +3173,7 @@
                         "s" : [ {
                            "value" : [ "title",": " ]
                         }, {
-                           "r" : "144",
+                           "r" : "145",
                            "s" : [ {
                               "value" : [ "'Decide When You Want to Start Breast Cancer Screening'" ]
                            } ]
@@ -2867,9 +3184,9 @@
                         "s" : [ {
                            "value" : [ "information",": " ]
                         }, {
-                           "r" : "154",
+                           "r" : "160",
                            "s" : [ {
-                              "value" : [ "\"Screening Information Statement\"" ]
+                              "value" : [ "\"Patient Information\"" ]
                            } ]
                         } ]
                      }, {
@@ -2878,7 +3195,7 @@
                         "s" : [ {
                            "value" : [ "decision",": " ]
                         }, {
-                           "r" : "157",
+                           "r" : "168",
                            "s" : [ {
                               "value" : [ "\"Patient Decision\"" ]
                            } ]
@@ -2887,11 +3204,11 @@
                         "value" : [ ",\n  " ]
                      }, {
                         "s" : [ {
-                           "value" : [ "screeningChoice",": " ]
+                           "value" : [ "recommendation",": " ]
                         }, {
-                           "r" : "160",
+                           "r" : "176",
                            "s" : [ {
-                              "value" : [ "\"Is Screening Right for You?\"" ]
+                              "value" : [ "\"Patient Recommendation\"" ]
                            } ]
                         } ]
                      }, {
@@ -2900,7 +3217,7 @@
                         "s" : [ {
                            "value" : [ "questionnaire",": " ]
                         }, {
-                           "r" : "161",
+                           "r" : "177",
                            "s" : [ {
                               "value" : [ "'mpc-breast-cancer'" ]
                            } ]
@@ -2914,6 +3231,12 @@
             "resultTypeSpecifier" : {
                "type" : "TupleTypeSpecifier",
                "element" : [ {
+                  "name" : "notifyPatient",
+                  "elementType" : {
+                     "name" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }, {
                   "name" : "recommendScreening",
                   "elementType" : {
                      "name" : "{urn:hl7-org:elm-types:r1}Boolean",
@@ -2934,20 +3257,29 @@
                }, {
                   "name" : "information",
                   "elementType" : {
-                     "name" : "{urn:hl7-org:elm-types:r1}String",
-                     "type" : "NamedTypeSpecifier"
+                     "type" : "ListTypeSpecifier",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "NamedTypeSpecifier"
+                     }
                   }
                }, {
                   "name" : "decision",
                   "elementType" : {
-                     "name" : "{urn:hl7-org:elm-types:r1}String",
-                     "type" : "NamedTypeSpecifier"
+                     "type" : "ListTypeSpecifier",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "NamedTypeSpecifier"
+                     }
                   }
                }, {
-                  "name" : "screeningChoice",
+                  "name" : "recommendation",
                   "elementType" : {
-                     "name" : "{urn:hl7-org:elm-types:r1}String",
-                     "type" : "NamedTypeSpecifier"
+                     "type" : "ListTypeSpecifier",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "NamedTypeSpecifier"
+                     }
                   }
                }, {
                   "name" : "questionnaire",
@@ -2958,12 +3290,18 @@
                } ]
             },
             "expression" : {
-               "localId" : "162",
-               "locator" : "94:26-102:1",
+               "localId" : "178",
+               "locator" : "94:26-103:1",
                "type" : "Tuple",
                "resultTypeSpecifier" : {
                   "type" : "TupleTypeSpecifier",
                   "element" : [ {
+                     "name" : "notifyPatient",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}Boolean",
+                        "type" : "NamedTypeSpecifier"
+                     }
+                  }, {
                      "name" : "recommendScreening",
                      "elementType" : {
                         "name" : "{urn:hl7-org:elm-types:r1}Boolean",
@@ -2984,20 +3322,29 @@
                   }, {
                      "name" : "information",
                      "elementType" : {
-                        "name" : "{urn:hl7-org:elm-types:r1}String",
-                        "type" : "NamedTypeSpecifier"
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
                      }
                   }, {
                      "name" : "decision",
                      "elementType" : {
-                        "name" : "{urn:hl7-org:elm-types:r1}String",
-                        "type" : "NamedTypeSpecifier"
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
                      }
                   }, {
-                     "name" : "screeningChoice",
+                     "name" : "recommendation",
                      "elementType" : {
-                        "name" : "{urn:hl7-org:elm-types:r1}String",
-                        "type" : "NamedTypeSpecifier"
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
                      }
                   }, {
                      "name" : "questionnaire",
@@ -3008,10 +3355,19 @@
                   } ]
                },
                "element" : [ {
-                  "name" : "recommendScreening",
+                  "name" : "notifyPatient",
                   "value" : {
                      "localId" : "142",
-                     "locator" : "95:23-95:43",
+                     "locator" : "95:18-95:38",
+                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "name" : "Recommend Screening",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "recommendScreening",
+                  "value" : {
+                     "localId" : "143",
+                     "locator" : "96:23-96:43",
                      "resultTypeName" : "{urn:hl7-org:elm-types:r1}Boolean",
                      "name" : "Recommend Screening",
                      "type" : "ExpressionRef"
@@ -3019,8 +3375,8 @@
                }, {
                   "name" : "name",
                   "value" : {
-                     "localId" : "143",
-                     "locator" : "96:9-96:33",
+                     "localId" : "144",
+                     "locator" : "97:9-97:33",
                      "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                      "valueType" : "{urn:hl7-org:elm-types:r1}String",
                      "value" : "Breast Cancer Screening",
@@ -3029,8 +3385,8 @@
                }, {
                   "name" : "title",
                   "value" : {
-                     "localId" : "144",
-                     "locator" : "97:10-97:64",
+                     "localId" : "145",
+                     "locator" : "98:10-98:64",
                      "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                      "valueType" : "{urn:hl7-org:elm-types:r1}String",
                      "value" : "Decide When You Want to Start Breast Cancer Screening",
@@ -3039,35 +3395,53 @@
                }, {
                   "name" : "information",
                   "value" : {
-                     "localId" : "154",
-                     "locator" : "98:16-98:48",
-                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-                     "name" : "Screening Information Statement",
-                     "type" : "ExpressionRef"
+                     "localId" : "160",
+                     "locator" : "99:16-99:36",
+                     "name" : "Patient Information",
+                     "type" : "ExpressionRef",
+                     "resultTypeSpecifier" : {
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }
                   }
                }, {
                   "name" : "decision",
                   "value" : {
-                     "localId" : "157",
-                     "locator" : "99:13-99:30",
-                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
+                     "localId" : "168",
+                     "locator" : "100:13-100:30",
                      "name" : "Patient Decision",
-                     "type" : "ExpressionRef"
+                     "type" : "ExpressionRef",
+                     "resultTypeSpecifier" : {
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }
                   }
                }, {
-                  "name" : "screeningChoice",
+                  "name" : "recommendation",
                   "value" : {
-                     "localId" : "160",
-                     "locator" : "100:20-100:48",
-                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
-                     "name" : "Is Screening Right for You?",
-                     "type" : "ExpressionRef"
+                     "localId" : "176",
+                     "locator" : "101:19-101:42",
+                     "name" : "Patient Recommendation",
+                     "type" : "ExpressionRef",
+                     "resultTypeSpecifier" : {
+                        "type" : "ListTypeSpecifier",
+                        "elementType" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }
                   }
                }, {
                   "name" : "questionnaire",
                   "value" : {
-                     "localId" : "161",
-                     "locator" : "101:18-101:36",
+                     "localId" : "177",
+                     "locator" : "102:18-102:36",
                      "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                      "valueType" : "{urn:hl7-org:elm-types:r1}String",
                      "value" : "mpc-breast-cancer",

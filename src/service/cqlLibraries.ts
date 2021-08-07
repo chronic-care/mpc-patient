@@ -7,12 +7,13 @@ import CDSConnectCommons from '../cql/CDSConnectCommons.json';
 import PreventiveCareConcepts from '../cql/PreventiveCareConcepts.json';
 import PreventiveCareData from '../cql/PreventiveCareData.json';
 import PreventiveCareSummary from '../cql/PreventiveCareSummary.json';
-
-import ProstateCancerScreening from '../cql/ProstateCancerScreening.json';
-import ProstateCancerSummary from '../cql/ProstateCancerSummary.json';
+import PatientSummary from '../cql/PatientSummary.json';
 
 import BreastCancerScreening from '../cql/BreastCancerScreening.json';
 import ColonCancerScreening from '../cql/ColonCancerScreening.json';
+import LungCancerScreening from '../cql/LungCancerScreening.json';
+import LungCancerSummary from '../cql/LungCancerSummary.json';
+import ProstateCancerScreening from '../cql/ProstateCancerScreening.json';
 
 import valueSetDB from '../cql/valueset-db.json';
 
@@ -23,8 +24,7 @@ const getPatientSummaryLibrary = () => new cql.Library(PreventiveCareSummary, ne
     FHIRHelpers,
   }));
   
-const getProstateCancerLibrary = () => new cql.Library(ProstateCancerSummary, new cql.Repository({
-  ProstateCancerScreening,
+const getProstateCancerLibrary = () => new cql.Library(ProstateCancerScreening, new cql.Repository({
   PreventiveCareData,
   PreventiveCareConcepts,
   CDSConnectCommons,
@@ -47,14 +47,23 @@ const getColonCancerLibrary = () => new cql.Library(ColonCancerScreening, new cq
   FHIRHelpers,
 }));
 
+const getLungCancerLibrary = () => new cql.Library(LungCancerSummary, new cql.Repository({
+  LungCancerScreening,
+  PatientSummary,
+  FHIRCommon,
+  FHIRHelpers,
+}));
+
 export const codeService = new cql.CodeService(valueSetDB);
 export const patientSummaryLibrary = getPatientSummaryLibrary();
 export const breastCancerLibrary = getBreastCancerLibrary();
 export const colonCancerLibrary = getColonCancerLibrary();
+export const lungCancerLibrary = getLungCancerLibrary();
 export const prostateCancerLibrary = getProstateCancerLibrary();
 
 export const cancerScreeningLibraries = [
   breastCancerLibrary,
   colonCancerLibrary,
+  lungCancerLibrary,
   prostateCancerLibrary,
 ]

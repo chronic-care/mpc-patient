@@ -18,24 +18,40 @@ context Patient
 
 /* Data Elements */
 
-define "Flexible Sigmoidoscopy Procedure":
-  [Procedure: "Flexible Sigmoidoscopy"] FlexibleSigmoidoscopy
-		where FlexibleSigmoidoscopy.status = 'completed'
-
-define "Most recent flexible sigmoidoscopy":
-  Last("Flexible Sigmoidoscopy Procedure" P
-    sort by (FHIRHelpers.ToDateTime(performed))
-  )
-
 define "Flexible Sigmoidoscopy Performed":
   [Procedure: "Flexible Sigmoidoscopy"] FlexibleSigmoidoscopy
 		where FlexibleSigmoidoscopy.status = 'completed'
-			and FC.ToInterval(FlexibleSigmoidoscopy.performed) ends 5 years or less on or before Today()
 
 define "CT Colonography Performed":
   [Procedure: "CT Colonography"] Colonography
-		where Colonography.status = 'completed'
-			and FC.ToInterval(Colonography.performed) ends 5 years or less on or before Today()
+    where Colonography.status = 'completed'
+
+/* define "Total Colectomy Performed":
+  [Procedure: "Total Colectomy"] Colectomy
+    where Colectomy.status = 'completed' */
+
+define "Colonoscopy Performed":
+  [Procedure: "Colonoscopy"] Colonoscopy
+		where Colonoscopy.status = 'completed'
+
+define "Most recent flexible sigmoidoscopy":
+  Last("Flexible Sigmoidoscopy Performed" P
+    sort by (FHIRHelpers.ToDateTime(performed))
+  )
+
+define "Flexible Sigmoidoscopy Performed Within 5 Years":
+  "Flexible Sigmoidoscopy Performed" P
+    where FC.ToInterval(P.performed) ends 5 years or less on or before Today()
+
+define "CT Colonography Performed Within 5 Years":
+  "CT Colonography Performed" P
+    where FC.ToInterval(P.performed) ends 5 years or less on or before Today()
+
+define "Most Recent Colonoscopy Performed":
+  MostRecent("Colonoscopy Performed", Today())
+
+define "Most Recent CT Colonography Performed":
+  MostRecent("CT Colonography Performed", Today())
 
 define "Fecal Occult Blood Test Performed":
   [Observation: "Fecal Occult Blood Test (FOBT)"] FecalOccultResult
@@ -49,7 +65,7 @@ define "Fecal Immunochemical Test DNA":
 			and FitDNA.value is not null
 			and FC.ToInterval(FitDNA.effective) occurs 3 years or less on or before Today()
 
-define "Colonoscopy Performed":
+define "Colonoscopy Performed within 10 years":
   [Procedure: "Colonoscopy"] Colonoscopy
 		where Colonoscopy.status = 'completed'
 		  and FC.ToInterval(Colonoscopy.performed) ends 10 years or less on or before Today()
@@ -62,6 +78,12 @@ define "Total Colectomy Performed":
   [Procedure: "Total Colectomy"] Colectomy
 		where Colectomy.status = 'completed'
 //			and FC.ToInterval(Colectomy.performed) starts on or before Today()
+
+define function MostRecent(procedures List<Procedure>, asOf DateTime):
+  First(
+    procedures P
+      sort by start of FC.ToInterval(performed)
+  )
 
 define "Never had colon cancer screening":
   "Most recent flexible sigmoidoscopy" is null
@@ -81,9 +103,9 @@ define "Recommend Screening":
 /* Inclusion Criteria */
 define "Inclusion Criteria":
   "Age 45 through 75"
-  and not (exists "Colonoscopy Performed"
+  and not (exists "Colonoscopy Performed within 10 years"
 		or exists "Fecal Occult Blood Test Performed"
-		or exists "Flexible Sigmoidoscopy Performed"
+		or exists "Flexible Sigmoidoscopy Performed Within 5 Years"
 		or exists "Fecal Immunochemical Test DNA"
     )
 
@@ -95,26 +117,35 @@ define "Exclusion Criteria":
 /* Screening Summary */
 
 define ScreeningSummary: {
+  notifyPatient: "Recommend Screening",
   recommendScreening: "Recommend Screening",
   name: 'Colon Cancer Screening',
   title: 'Decide How You Want to Be Screened for Colon Cancer',
-  information: "Screening Information Statement",
+  information: "Patient Information",
   decision: "Patient Decision",
-  screeningChoice: "Is Screening Right for You?",
+  recommendation: "Patient Recommendation",
   questionnaire: 'mpc-colon-cancer'
 }
 
-define "Screening Information Statement":
-  if "Never had colon cancer screening"
-    then 'You have never been screened for colon cancer'
-  else if exists "Flexible Sigmoidoscopy Procedure"
-    then 'Your last sigmoidoscopy was ' + ToString("Most recent flexible sigmoidoscopy".performed)
-  else
-    'Other procedure data...'
+define "Patient Information":
+  (List{
+    if "Never had colon cancer screening"
+      then 'You have never been screened for colon cancer'
+    else null,
+    if exists "Flexible Sigmoidoscopy Performed"
+      then 'Your last sigmoidoscopy was on ' + ToString(date from start of FC.ToInterval("Most recent flexible sigmoidoscopy".performed))
+    else null,
+    if exists "Colonoscopy Performed"
+      then 'Your last colonoscopy was on ' + ToString(date from start of FC.ToInterval("Most Recent Colonoscopy Performed".performed))
+    else null
+  }) Text where Text is not null
 
 define "Patient Decision":
-  'Colon cancer screening saves lives. Guidelines recommend that everyone gets screened for colon cancer between the ages of 45 and 75 years. There are two different ways you can get screened for colon cancer by (1) looking at the colon or (2) testing your stool. Both approaches save a similar number of lives, but they have different risks and benefits.'
+  (List{
+    'Colon cancer screening saves lives. Guidelines recommend that everyone gets screened for colon cancer between the ages of 45 and 75 years. There are two different ways you can get screened for colon cancer by (1) looking at the colon or (2) testing your stool. Both approaches save a similar number of lives, but they have different risks and benefits.'
+  }) Text where Text is not null
 
-// TODO Should be:	How Do You Want to Be Screened?
-define "Is Screening Right for You?":
-  'Get screened, but how you get screened is up to you.'
+define "Patient Recommendation":
+  (List{
+    'Get screened, but how you get screened is up to you.'
+  }) Text where Text is not null

@@ -3,7 +3,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     text-align: left;
 }
 
@@ -19,6 +19,20 @@
       max-height: 768px;
     }
 }
+
+.title {
+    padding: 10px;
+    margin: auto;
+    display:flex; 
+    justify-content:center;
+}
+
+.subheadline {
+    margin: auto;
+    margin-bottom: 5px;
+    justify-content:center;
+}
+
 .home-view p {
     font-size: 1rem;
 }

@@ -3,12 +3,11 @@ import { fhirclient } from 'fhirclient/lib/types';
 import { Resource, Patient, Practitioner, CarePlan, Condition, DiagnosticReport, Goal, Observation,
         Procedure, Immunization, MedicationRequest } from '../fhir-types/fhir-r4';
 import { FHIRData } from '../models/fhirResources';
-// import { properties } from './properties';
 import { format } from 'date-fns';
 
-const resourcesFrom = (response: fhirclient.JsonObject): [Resource] => {
-  const entries = response[0].entry || [];
-  return entries.map((entry: fhirclient.JsonObject) => entry.resource)
+const resourcesFrom = (response: fhirclient.JsonObject): Resource[] => {
+  const entries = (response[0] as fhirclient.JsonObject)?.entry as [fhirclient.JsonObject];
+  return entries?.map((entry: fhirclient.JsonObject) => entry.resource as any)
                 .filter((resource: Resource) => resource.resourceType !== 'OperationOutcome');
 };
 
@@ -22,15 +21,15 @@ const threeMonthsAgo = new Date(today.getTime() - (365/4 * oneDay))
 const oneYearAgo = new Date(today.getTime() - (365 * oneDay))
 
 const carePlanPath = 'CarePlan?category=38717003,assess-plan';  // Epic or Cerner category
-const conditionsPath = 'Condition?category=problem-list-item&clinical-status=active';
 const goalsPath = 'Goal?lifecycle-status=active';
+const conditionsPath = 'Condition?category=problem-list-item&clinical-status=active';
 const immunizationsPath = 'Immunization';
 const labResultsPath = 'Observation?category=laboratory';
 const medicationRequestPath = 'MedicationRequest?status=active&authoredon=' + getDateParameter(oneYearAgo);
 const proceduresPath = 'Procedure';
 const diagnosticReportPath = 'DiagnosticReport';
 const vitalSignsPath = 'Observation?category=vital-signs&date=' + getDateParameter(threeMonthsAgo);
-const socialHistoryPath = 'Observation?category=social-history';
+const socialHistoryPath = 'Observation?category=social-history&code=72166-2'; // only Smoking Status
 
 const fhirOptions: fhirclient.FhirOptions = {
   pageLimit: 0,
@@ -81,10 +80,14 @@ export const getFHIRData = async (): Promise<FHIRData> => {
     : undefined) as [Observation];
 
   // console.log("FHIRData Patient: " + JSON.stringify(patient));
-  // console.log("FHIRData carePlans: ");
-  // carePlans?.forEach(function (resource) {
-  //   console.log(JSON.stringify(resource));
-  // });
+  console.log("FHIRData social history: ");
+  socialHistory?.forEach(function (resource) {
+    console.log(JSON.stringify(resource));
+  });
+  console.log("FHIRData goals: ");
+  goals?.forEach(function (resource) {
+    console.log(JSON.stringify(resource));
+  });
 
   return {
     patient,

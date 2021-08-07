@@ -1,4 +1,4 @@
-import '../patient/Patient.css';
+import './Patient.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PatientSummary, ScreeningSummary } from '../../models/cqlSummary';
@@ -33,21 +33,35 @@ export class ScreeningDecision extends React.Component<ScreeningDecisionProps, S
         <h4>{screening?.title}</h4>
         <p/>
         <h5>Your Information</h5>
-        <p>{screening?.information}</p>
+        {screening?.information.map((info, idx) => 
+          <p key={idx.toString()}>{info}</p>
+        )}
         
         <h5>The Decision</h5>
-        <p className="intro-text mb-5">{screening?.decision}</p>
+        {screening?.decision.map((info, idx) => 
+          <p key={idx.toString()}>{info}</p>
+        )}
 
-        <h5>Is Screening Right For You?</h5>
-        <p>{screening?.screeningChoice}</p>
-        <p>Review the information on the next couple of pages. 
-        Then answer a few questions. This will help you and {patient?.pcpName} prepare to decide what 
-        is right for you at your next visit.</p>
+        <h5>Your Recommendations</h5>
+        {screening?.recommendation.map((info, idx) => 
+          <p key={idx.toString()}>{info}</p>
+        )}
+        
+        {screening?.recommendScreening === true  ?
+          <div>
+          <p>Review the information on the next couple of pages. 
+          Then answer a few questions. This will help you and {patient?.pcpName} prepare to decide what 
+          is right for you at your next visit.</p>
 
-        {/* <Button variant="outline-secondary" size='lg' className="next-button" onClick={this.startQuestionnaire}><strong>Make Your Care Plan</strong> </Button> */}
-        <Link to={{pathname: '/questionnaire', 
-                    state: { patientSummary: this.state.patientSummary, questionnaireId: screening?.questionnaire }
-                  }} className='btn btn-primary'><strong>Make Your Care Plan</strong></Link>
+          <Link to={{pathname: '/questionnaire', 
+                      state: { patientSummary: this.state.patientSummary, questionnaireId: screening?.questionnaire }
+                    }} className='btn btn-primary plan-button'><strong>Make Your Care Plan</strong></Link>
+          </div>
+          :
+          <div>
+            <Link className='btn btn-primary plan-button' to='/'>Return to Home</Link>
+          </div>
+        }
       </div>
     )
   }

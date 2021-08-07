@@ -50,35 +50,20 @@ export const getPatientSummary = (fhirData: FHIRData): PatientSummary => {
   return extractedSummary.PatientSummary;
 };
 
-export const executeCancerScreening = (fhirData: FHIRData): [ScreeningSummary] => {
-  /* Unexpected: cannot reuse patientSource for multiple library executions, 
-      seems to be empty after first execution. */
-  // const patientSource = getPatientSource(fhirData);
+export const executeScreenings = (fhirData: FHIRData): [ScreeningSummary] => {
+  // Cannot reuse patientSource for multiple library executions.
   return cancerScreeningLibraries.map((library: any) => (
-    executeScreeningLibrary(library, getPatientSource(fhirData))
+    executeScreeningLibrary(library, codeService, getPatientSource(fhirData))
   )) as [ScreeningSummary]
 }
 
-const executeScreeningLibrary = (library: any, patientSource: any): ScreeningSummary => {
+const executeScreeningLibrary = (library: any, codeService: any, patientSource: any): ScreeningSummary => {
   const executor = new cql.Executor(library, codeService);
   const results = executor.exec(patientSource);
   const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
   const screeningSummary = extractedSummary.ScreeningSummary as ScreeningSummary;
-  // console.log("ScreeningSummary: " + JSON.stringify(screeningSummary));
+  console.log("ScreeningSummary: " + JSON.stringify(screeningSummary));
+  // console.log("CQL Results: " + JSON.stringify(extractedSummary));
 
   return screeningSummary;
 }
-
-/*
-const executeCQLExpression = (libraryToExecute: cql.Library, parameters: CQLExpressionParameters, expressionName: string): unknown => {
-  const expressionExecutor = new cql.Executor(libraryToExecute, codeService, parameters);
-
-  const results = expressionExecutor.exec_expression(expressionName, getPatientSource(globals.fhirData as FHIRData));
-
-  const patientResults = Object.keys(results.patientResults);
-  const firstPatientResult = patientResults[0];
-  const expressions = results.patientResults[firstPatientResult];
-
-  return expressions[expressionName];
-};
-*/

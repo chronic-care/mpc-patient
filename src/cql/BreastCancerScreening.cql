@@ -92,23 +92,30 @@ define "Exclusion Criteria":
 /* Screening Summary */
 
 define ScreeningSummary: {
+  notifyPatient: "Recommend Screening",
   recommendScreening: "Recommend Screening",
   name: 'Breast Cancer Screening',
   title: 'Decide When You Want to Start Breast Cancer Screening',
-  information: "Screening Information Statement",
+  information: "Patient Information",
   decision: "Patient Decision",
-  screeningChoice: "Is Screening Right for You?",
+  recommendation: "Patient Recommendation",
   questionnaire: 'mpc-breast-cancer'
 }
 
-define "Screening Information Statement":
-  if "Never had a mammogram"
-    then 'You have never had a mammogram'
-  else
-    'Your last mammogram test was ' + ToString("Most recent mammogram".effective)
+define "Patient Information":
+  (List{
+    if "Never had a mammogram"
+      then 'You have never had a mammogram'
+    else
+      'Your last mammogram test was ' + ToString("Most recent mammogram".effective)
+  }) Text where Text is not null
 
 define "Patient Decision":
-  'The decision to start screening for breast cancer in women prior to the age of 50 years should be an individual one. Women who place a higher value on the potential benefit than the harms may choose to begin screening between the ages of 40 and 49 years.'
+  (List{
+    'The decision to start screening for breast cancer in women prior to the age of 50 years should be an individual one. Women who place a higher value on the potential benefit than the harms may choose to begin screening between the ages of 40 and 49 years.'
+  }) Text where Text is not null
 
-define "Is Screening Right for You?":
-  'For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening.'
+define "Patient Recommendation":
+  (List{
+    'For women who are at average risk for breast cancer, most of the benefit of mammography results from screening every two years during ages 50 to 74 years. Guidelines recommend that younger women talk with their doctor to decide when to start screening.'
+  }) Text where Text is not null
