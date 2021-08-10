@@ -62,7 +62,7 @@ const executeScreeningLibrary = (library: any, codeService: any, patientSource: 
   const results = executor.exec(patientSource);
   const extractedSummary = results.patientResults[Object.keys(results.patientResults)[0]];
   const screeningSummary = extractedSummary.ScreeningSummary as ScreeningSummary;
-  console.log("ScreeningSummary: " + JSON.stringify(screeningSummary));
+  // console.log("ScreeningSummary: " + JSON.stringify(screeningSummary));
   // console.log("CQL Results: " + JSON.stringify(extractedSummary));
 
   return screeningSummary;

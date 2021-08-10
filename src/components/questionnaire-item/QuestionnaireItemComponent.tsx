@@ -212,7 +212,7 @@ export default class QuestionnaireItemComponent extends React.Component<any, Que
             ) : null
           }
         </div>
-        <Button variant="outline-secondary" size='lg' className="next-button" value={this.props.QuestionnaireItem.linkId} onClick={(event: any) => this.handleNextQuestionScroll(event.target.value)}>Next</Button>
+        <Button className="btn btn-primary next-button" value={this.props.QuestionnaireItem.linkId} onClick={(event: any) => this.handleNextQuestionScroll(event.target.value)}>Next</Button>
       </Card>
     );
   }

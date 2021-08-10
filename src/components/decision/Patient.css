@@ -49,10 +49,10 @@
     background-color: lightgray;
 }
 
-.plan-button btn-primary {
+/* .plan-button btn-primary {
     width: 50%;
     align-self: center;
-}
+} */
 
 .next-button {
     width: 50%;
@@ -62,7 +62,7 @@
 }
 
 .plan-button {
-    width: 50%;
+    width: 60%;
     margin: auto;
     display:flex; 
     justify-content:center;

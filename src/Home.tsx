@@ -35,7 +35,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
             <p>MyPreventiveCare is a tool to help you and your doctor work together to keep you healthy. It is a completely personalized way to see what steps you’ve already taken and what else you can do to check for and prevent illnesses.</p>
             <p>MyPreventiveCare doesn’t just tell you what <i>people</i> should do to stay healthy – it is all about what <i>you</i> need to stay healthy.</p>
             {(patient === undefined) ? '' :
-                <p className="subheadline">Recommendations for <b>{patient?.fullName}</b> ({patient?.gender}) Age {patient?.age}</p>
+                <p className="subheadline">Recommendations for<br/><b>{patient?.fullName}</b> ({patient?.gender}) Age {patient?.age}</p>
             }
         </div>
         {(this.props.fhirData === undefined)

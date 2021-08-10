@@ -15,6 +15,15 @@
     display: flex;
 }
 
+.next-button {
+    width: 40%;
+    margin: auto;
+    display:flex; 
+    justify-content:center;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
 .btn-outline-secondary {
     color: var(--color-dark);
     border-color: var(--color-dark);
