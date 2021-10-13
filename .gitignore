@@ -17,3 +17,6 @@ client-ids/*
 .DS_Store
 .idea/
 .DS_Store
+
+# CQL execution results
+input/tests/results/*
