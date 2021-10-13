@@ -4,6 +4,13 @@ const epicScope = "launch openid patient/Patient.read patient/Practitioner.read 
 
 FHIR.oauth2.authorize([
     {
+        // Meld sandbox
+        issMatch: /\binterop.community\b/i,
+        redirectUri: "./index.html",
+        clientId: process.env.REACT_APP_CLIENT_ID_meld,
+        scope: "launch launch/patient patient/Patient.read patient/Practitioner.read patient/Condition.read patient/DiagnosticReport.read patient/Observation.read patient/Procedure.read patient/CarePlan.read patient/Goal.read patient/Immunization.read patient/MedicationRequest.read patient/Questionnaire.read patient/QuestionnaireResponse.write"
+    },
+    {
         // Logica sandbox
         issMatch: /\blogicahealth\b/i,
         redirectUri: "./index.html",
