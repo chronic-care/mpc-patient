@@ -64,7 +64,7 @@ define "Last PSA value is high":
 
 define "Who to Alert?":
   Data."Patient is male"
-    and AgeInYears() between 40 and 70
+    and AgeInYears() between 55 and 70
     and not "Has prostate cancer Hx"
 
 define "Recommend Screening?":
@@ -91,7 +91,7 @@ define "Patient Information":
     if "No PSA test results"
       then 'You have never had a PSA test'
     else
-      'Your PSA value was ' + ToString("Last PSA value") + ' on ' + ToString("Last PSA date")
+      'Your last PSA value was ' + ToString("Last PSA value") + ' on ' + ToString("Last PSA date")
   }) Text where Text is not null
 
 define "Patient Decision":

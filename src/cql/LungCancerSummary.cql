@@ -23,13 +23,8 @@ define ScreeningSummary: {
   questionnaire: 'mpc-lung-cancer'
 }
 
-define "Age 40 through 80":
-  AgeInYears() >= 40 and AgeInYears() <= 80
-
-// Notify patients starting at 40 (for pilot testing, may not keep in production).
 define "Notify Patient?":
-  /* LCS."50 through 80" */
-  "Age 40 through 80"
+  LCS."50 through 80"
     and (LCS."Is current smoker" or "Is former smoker")
     and not LCS."Has lung cancer"
 

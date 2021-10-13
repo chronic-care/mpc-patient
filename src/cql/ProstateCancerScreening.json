@@ -1263,7 +1263,7 @@
                               } ]
                            }, {
                               "r" : "75",
-                              "value" : [ " between ","40"," and ","70" ]
+                              "value" : [ " between ","55"," and ","70" ]
                            } ]
                         } ]
                      }, {
@@ -1325,7 +1325,7 @@
                            "locator" : "67:30-67:31",
                            "resultTypeName" : "{urn:hl7-org:elm-types:r1}Integer",
                            "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "40",
+                           "value" : "55",
                            "type" : "Literal"
                         } ]
                      }, {
@@ -1510,7 +1510,7 @@
                                              "s" : [ {
                                                 "r" : "96",
                                                 "s" : [ {
-                                                   "value" : [ "'Your PSA value was '" ]
+                                                   "value" : [ "'Your last PSA value was '" ]
                                                 } ]
                                              }, {
                                                 "value" : [ " + " ]
@@ -1624,7 +1624,7 @@
                      },
                      "element" : [ {
                         "localId" : "105",
-                        "locator" : "91:5-94:93",
+                        "locator" : "91:5-94:98",
                         "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                         "type" : "If",
                         "condition" : {
@@ -1644,34 +1644,34 @@
                         },
                         "else" : {
                            "localId" : "104",
-                           "locator" : "94:7-94:93",
+                           "locator" : "94:7-94:98",
                            "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "Concatenate",
                            "operand" : [ {
                               "localId" : "101",
-                              "locator" : "94:7-94:65",
+                              "locator" : "94:7-94:70",
                               "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                               "type" : "Concatenate",
                               "operand" : [ {
                                  "localId" : "99",
-                                 "locator" : "94:7-94:56",
+                                 "locator" : "94:7-94:61",
                                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                                  "type" : "Concatenate",
                                  "operand" : [ {
                                     "localId" : "96",
-                                    "locator" : "94:7-94:27",
+                                    "locator" : "94:7-94:32",
                                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                                    "value" : "Your PSA value was ",
+                                    "value" : "Your last PSA value was ",
                                     "type" : "Literal"
                                  }, {
                                     "localId" : "98",
-                                    "locator" : "94:31-94:56",
+                                    "locator" : "94:36-94:61",
                                     "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                                     "type" : "ToString",
                                     "operand" : {
                                        "localId" : "97",
-                                       "locator" : "94:40-94:55",
+                                       "locator" : "94:45-94:60",
                                        "resultTypeName" : "{urn:hl7-org:elm-types:r1}Decimal",
                                        "name" : "Last PSA value",
                                        "type" : "ExpressionRef"
@@ -1679,7 +1679,7 @@
                                  } ]
                               }, {
                                  "localId" : "100",
-                                 "locator" : "94:60-94:65",
+                                 "locator" : "94:65-94:70",
                                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
                                  "value" : " on ",
@@ -1687,12 +1687,12 @@
                               } ]
                            }, {
                               "localId" : "103",
-                              "locator" : "94:69-94:93",
+                              "locator" : "94:74-94:98",
                               "resultTypeName" : "{urn:hl7-org:elm-types:r1}String",
                               "type" : "ToString",
                               "operand" : {
                                  "localId" : "102",
-                                 "locator" : "94:78-94:92",
+                                 "locator" : "94:83-94:97",
                                  "resultTypeName" : "{urn:hl7-org:elm-types:r1}DateTime",
                                  "name" : "Last PSA date",
                                  "type" : "ExpressionRef"
